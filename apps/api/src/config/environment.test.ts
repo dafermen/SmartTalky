@@ -10,6 +10,7 @@ describe('loadConfig', () => {
       port: 3000,
       logLevel: 'info',
       openAiApiKey: undefined,
+      cachedFakeProviderEnabled: false,
       ttsTimeoutMs: 30000,
       ttsMaxRetries: 1,
       educationalModel: 'gpt-5.6',
@@ -33,6 +34,7 @@ describe('loadConfig', () => {
         PORT: '8080',
         LOG_LEVEL: 'warn',
         OPENAI_API_KEY: 'clave-solo-para-prueba',
+        CACHED_FAKE_PROVIDER_ENABLED: 'true',
         TTS_TIMEOUT_MS: '15000',
         TTS_MAX_RETRIES: '2',
         OPENAI_EDUCATIONAL_MODEL: 'modelo-educativo',
@@ -52,6 +54,7 @@ describe('loadConfig', () => {
       port: 8080,
       logLevel: 'warn',
       openAiApiKey: 'clave-solo-para-prueba',
+      cachedFakeProviderEnabled: true,
       ttsTimeoutMs: 15000,
       ttsMaxRetries: 2,
       educationalModel: 'modelo-educativo',
@@ -69,6 +72,12 @@ describe('loadConfig', () => {
 
   it('trata una clave vacía como proveedor no configurado', () => {
     expect(loadConfig({ OPENAI_API_KEY: '   ' }).openAiApiKey).toBeUndefined()
+  })
+
+  it('rechaza habilitar el proveedor falso con valores ambiguos', () => {
+    expect(() => loadConfig({ CACHED_FAKE_PROVIDER_ENABLED: '1' })).toThrow(
+      'cachedFakeProviderEnabled',
+    )
   })
 
   it('rechaza un puerto fuera del rango TCP sin filtrar el entorno completo', () => {

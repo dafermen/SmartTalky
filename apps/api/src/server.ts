@@ -23,6 +23,7 @@ import {
   DEFAULT_OPENAI_TTS_VOICE,
 } from './features/text-to-speech/infrastructure/openai-text-to-speech-provider.js'
 import { createLocalAudioCacheRepository } from './features/text-to-speech/infrastructure/local-audio-cache-repository.js'
+import { fakeTextToSpeechProvider } from './features/text-to-speech/infrastructure/fake-text-to-speech-provider.js'
 import { createLogger } from './observability/logger.js'
 import { createInMemoryProviderGenerationBudget } from './observability/provider-generation-budget.js'
 
@@ -55,9 +56,11 @@ function registerGracefulShutdown(
 const config = loadConfig()
 const logger = createLogger(config)
 const runtimeDependencies = (() => {
-  if (config.openAiApiKey === undefined) {
+  if (config.openAiApiKey === undefined && !config.cachedFakeProviderEnabled) {
     return {}
   }
+
+  const usesFakeProvider = config.openAiApiKey === undefined
 
   const generationBudget = createInMemoryProviderGenerationBudget({
     maximum: config.providerGenerationBudgetMaximum,
@@ -77,37 +80,43 @@ const runtimeDependencies = (() => {
     fileURLToPath(new URL('../../../storage/educational-cache/', import.meta.url)),
     { maximumEntries: config.educationalCacheMaximumEntries },
   )
-  const educationalProvider = createFallbackEducationalContentProvider(
-    createCachedEducationalContentProvider({
-      provider: createOpenAiEducationalContentProvider({
-        apiKey: config.openAiApiKey,
-        model: config.educationalModel,
-        timeoutMs: config.educationalTimeoutMs,
-      }),
-      cache: educationalCache,
-      model: config.educationalModel,
-      promptVersion: EDUCATIONAL_PROMPT_VERSION,
-      beforeGenerate: () => generationBudget.consume('educational-content'),
-    }),
-    fakePronunciationProvider,
-  )
-  const provider = createResilientTextToSpeechProvider(
-    createOpenAiTextToSpeechProvider({ apiKey: config.openAiApiKey }),
-    {
-      timeoutMs: config.ttsTimeoutMs,
-      maxRetries: config.ttsMaxRetries,
-    },
-  )
+  const educationalProvider = usesFakeProvider
+    ? fakePronunciationProvider
+    : createFallbackEducationalContentProvider(
+        createCachedEducationalContentProvider({
+          provider: createOpenAiEducationalContentProvider({
+            apiKey: config.openAiApiKey,
+            model: config.educationalModel,
+            timeoutMs: config.educationalTimeoutMs,
+          }),
+          cache: educationalCache,
+          model: config.educationalModel,
+          promptVersion: EDUCATIONAL_PROMPT_VERSION,
+          beforeGenerate: () => generationBudget.consume('educational-content'),
+        }),
+        fakePronunciationProvider,
+      )
+  const provider = usesFakeProvider
+    ? fakeTextToSpeechProvider
+    : createResilientTextToSpeechProvider(
+        createOpenAiTextToSpeechProvider({ apiKey: config.openAiApiKey }),
+        {
+          timeoutMs: config.ttsTimeoutMs,
+          maxRetries: config.ttsMaxRetries,
+        },
+      )
   const metrics = createInMemoryTextToSpeechMetrics()
   const getOrCreateSpeech = createGetOrCreateSpeech({
     repository: cache,
     provider,
     metrics,
-    beforeGenerate: () => generationBudget.consume('text-to-speech'),
+    beforeGenerate: usesFakeProvider
+      ? undefined
+      : () => generationBudget.consume('text-to-speech'),
     config: {
-      model: DEFAULT_OPENAI_TTS_MODEL,
-      voice: DEFAULT_OPENAI_TTS_VOICE,
-      provider: 'openai',
+      model: usesFakeProvider ? 'fake-tts-v1' : DEFAULT_OPENAI_TTS_MODEL,
+      voice: usesFakeProvider ? 'fake-en-us' : DEFAULT_OPENAI_TTS_VOICE,
+      provider: usesFakeProvider ? 'fake' : 'openai',
     },
   })
 

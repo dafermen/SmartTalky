@@ -56,6 +56,7 @@
     "performance:web": "node scripts/check-web-performance.mjs",
     "performance:api": "npm run build:dependencies && npm run build --workspace @smarttalky/api && npm run performance:api:built",
     "performance:api:built": "node scripts/check-api-load.mjs",
+    "performance:staging": "node scripts/check-staging-load.mjs",
     "release:check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run test:e2e:built && npm run security:bundle && npm run performance:web && npm run performance:api:built && npm run docs:check && npm run docs:structure && npm run licenses:check && npm run continuity:check && npm run demo:check",
     "test:e2e:built": "playwright test",
     "predeploy:check": "npm run release:check && npm run test:mutation && node scripts/check-deployment-readiness.mjs --strict",

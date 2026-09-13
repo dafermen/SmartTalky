@@ -90,9 +90,15 @@ falsamente como prueba completada.
 - Ejecutar `SMARTTALKY_STAGING_URL=https://... npm run test:e2e:staging` solo
   desde un origen autorizado; valida el certificado sin excepciones, headers,
   UI–API, audio simulado, claves estables y rechazo CORS.
+- En staging puede habilitarse `CACHED_FAKE_PROVIDER_ENABLED=true` con la clave
+  vacía para recorrer la caché de audio real sin red ni costo. Nunca habilitar
+  esta opción en producción pública.
 - Ejecutar `npm run performance:api`: 1.000 solicitudes, concurrencia 25,
   umbrales p95/p99 y crecimiento RSS. Una medición pagada requiere autorización
   separada.
+- Ejecutar `SMARTTALKY_STAGING_URL=https://... npm run performance:staging`
+  desde el origen autorizado y observar simultáneamente CPU, memoria, disco y
+  red del host. La ruta de salud evita consumo de proveedor y rate limit.
 - Antes de completar estas puertas, repetir en staging HTTPS, cubrir audio/caché
   y observar CPU, disco, red y capacidad durante carga sostenida.
 - Verificar HTTPS, CORS, secretos administrados, migración, rollback, health y

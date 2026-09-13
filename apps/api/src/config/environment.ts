@@ -26,6 +26,10 @@ const environmentSchema = z.object({
     (value) => (typeof value === 'string' && value.trim() === '' ? undefined : value),
     z.string().trim().min(1).optional(),
   ),
+  cachedFakeProviderEnabled: z
+    .enum(['true', 'false'])
+    .default('false')
+    .transform((value) => value === 'true'),
   ttsTimeoutMs: z.coerce.number().int().positive().default(30_000),
   ttsMaxRetries: z.coerce.number().int().min(0).max(3).default(1),
   educationalModel: z.string().trim().min(1).max(100).default('gpt-5.6'),
@@ -61,6 +65,7 @@ export function loadConfig(source: NodeJS.ProcessEnv = process.env): AppConfig {
     port: source.PORT,
     logLevel: source.LOG_LEVEL,
     openAiApiKey: source.OPENAI_API_KEY,
+    cachedFakeProviderEnabled: source.CACHED_FAKE_PROVIDER_ENABLED,
     ttsTimeoutMs: source.TTS_TIMEOUT_MS,
     ttsMaxRetries: source.TTS_MAX_RETRIES,
     educationalModel: source.OPENAI_EDUCATIONAL_MODEL,
