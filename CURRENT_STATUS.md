@@ -39,6 +39,8 @@ SmartTalky.
   del servidor quedaron preparados sin publicación.
 - `ST-632` está completa: typecheck y mutation testing construyen primero sus
   dependencias internas; el CI remoto quedó verde desde un checkout limpio.
+- `ST-633` está en progreso: el propietario autorizó continuar con un staging
+  HTTPS restringido para reunir evidencia, sin habilitar producción pública.
 
 ## Funcionalidad terminada
 
@@ -156,8 +158,8 @@ consulta nueva sí puede hacerlo cuando la clave está configurada.
 3. Aprobar política de privacidad pública.
 4. Definir presupuesto mensual, cuota compartida y alertas del proveedor.
 5. Proveer o autorizar credenciales de firma Release y publicación.
-6. Autorizar el paso a staging y la emisión del certificado cuando las puertas
-   restantes puedan probarse.
+6. Revisar los resultados del staging autorizado y dar o negar la aprobación
+   final de producción cuando las 13 puertas estén completas.
 
 No crear cuentas, claves, releases ni publicaciones suponiendo estas
 decisiones. La preparación Git/Docker ya autorizada no equivale a permiso para
@@ -174,8 +176,8 @@ habilitar el servicio público.
 
 Antes de publicar:
 
-1. obtener aceptación visual del propietario;
-2. preparar staging HTTPS con secretos, CORS y presupuesto administrados;
+1. preparar el staging HTTPS restringido autorizado, sin proveedor pago;
+2. obtener aceptación visual del propietario;
 3. ejecutar E2E, seguridad, carga, rollback y smoke;
 4. repetir `npm run predeploy:check` hasta obtener 13/13;
 5. generar un AAB Release sin publicar y probarlo en el canal interno de Google

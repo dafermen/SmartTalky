@@ -19,11 +19,14 @@ detallada está en
 
 1. Registrar versión/commit y decisiones de arquitectura.
 2. Ejecutar `npm ci` en un entorno limpio.
-3. Ejecutar `npm run deployment:status` y resolver las brechas.
-4. Ejecutar `npm run predeploy:check`; debe finalizar correctamente.
-5. Desplegar primero en staging con configuración equivalente a producción.
-6. Ejecutar E2E, seguridad, carga, compatibilidad y rollback.
-7. Obtener aprobación del propietario.
+3. Ejecutar `npm run release:check`, confirmar CI remoto verde y revisar
+   `npm run deployment:status`.
+4. Con autorización explícita, crear un staging restringido con configuración
+   equivalente a producción y sin proveedor pago en pruebas automáticas.
+5. Ejecutar allí E2E, seguridad, carga, compatibilidad y rollback; actualizar la
+   evidencia de las puertas sin declarar como completa una prueba no realizada.
+6. Ejecutar `npm run predeploy:check`; debe finalizar 13/13 antes de producción.
+7. Obtener aprobación final del propietario.
 8. Desplegar producción mediante el mecanismo autorizado.
 9. Ejecutar health y smoke; observar errores, latencia, recursos y presupuesto.
 10. Registrar resultado y activar rollback si falla un criterio.
@@ -35,7 +38,10 @@ La matriz autoritativa es
 E2E empaquetado, carga backend y licencia ya tienen evidencia local. Aún faltan
 aceptación final, seguridad pública y staging HTTPS con rollback. El certificado
 que responde actualmente pertenece a otro dominio; por tanto,
-`npm run predeploy:check` debe fallar y no es válido ignorarlo.
+`npm run predeploy:check` debe fallar para producción y no es válido ignorarlo.
+Ese resultado no impide un staging restringido cuya finalidad sea reunir la
+evidencia faltante, siempre que `release:check`, CI y la autorización estén
+registrados.
 
 ## Topología preparada
 
@@ -86,9 +92,12 @@ certbot certonly --webroot -w /var/www/smarttalky-acme \
   -d smarttalky.innovalogic.tech
 ```
 
-9. Sustituir el bootstrap por
-   `deploy/nginx/smarttalky.innovalogic.tech.conf`, repetir `nginx -t`,
-   recargar y ejecutar smoke HTTPS externo.
+9. Para staging, crear
+   `/etc/nginx/snippets/smarttalky-staging-allow.conf` con una lista `allow`
+   mínima y `deny all`, habilitar `deploy/nginx/smarttalky.staging.conf`,
+   repetir `nginx -t`, recargar y ejecutar smoke HTTPS desde el origen
+   autorizado. La configuración sin restricción
+   `smarttalky.innovalogic.tech.conf` solo corresponde a producción 13/13.
 
 ## Rollback
 

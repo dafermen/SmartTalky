@@ -7,7 +7,7 @@ Mantener una fotografía inequívoca del proyecto para futuras sesiones de Codex
 ## Estado operativo
 
 - **Última tarea completada:** `ST-632` — CI reproducible desde checkout limpio.
-- **Tarea actual:** ninguna `EN_PROGRESO`; `ST-613`, `ST-614` y `ST-615` esperan aceptación visual del propietario.
+- **Tarea actual:** `ST-633` — staging HTTPS restringido para completar evidencia operativa.
 - **Fase 2:** completada.
 - **Fase 3:** completada; diez de diez tareas verificadas.
 - **Fase 4:** completada; doce de doce tareas verificadas.
@@ -15,7 +15,7 @@ Mantener una fotografía inequívoca del proyecto para futuras sesiones de Codex
 - **Fase 6:** implementación completa; `ST-631` preparó capturas, E2E, carga, GitHub y contenedores, y la puerta estricta conserva 8/13 familias completas.
 - **Fase 7:** `ST-701` y `ST-702` completadas; `ST-703` preparada hasta el límite verificable en Windows.
 - **Fase 8:** completada localmente; paquete, dos versiones Android, firma Debug, privacidad y checklist verificados sin publicar.
-- **Próxima tarea:** completar aceptación y las pruebas de staging HTTPS; producción exige 13/13.
+- **Próxima tarea:** completar el staging restringido autorizado y sus pruebas; producción exige 13/13.
 - **Reanudación obligatoria:** leer `CURRENT_STATUS.md` y ejecutar `npm run continuity:check` antes de elegir trabajo.
 
 ## Cambios implementados
@@ -564,3 +564,13 @@ Para continuar, usar `CURRENT_STATUS.md` como fotografía vigente. La siguiente 
   existe una tarea `EN_PROGRESO`.
 - El servidor y el despliegue público continúan sin cambios; la próxima tarea
   debe cerrar aceptación y pruebas de staging sin relajar la condición 13/13.
+
+## Inicio de staging restringido — 2026-09-13
+
+- El propietario autorizó continuar después del CI verde. `ST-633` es la única
+  tarea `EN_PROGRESO` y separa staging restringido de producción pública.
+- Se reconcilió la secuencia documental: `release:check` y CI habilitan un
+  staging autorizado para reunir evidencia; `predeploy:check` 13/13 continúa
+  siendo obligatorio antes de producción.
+- El staging no debe usar automáticamente OpenAI, aceptar tráfico general ni
+  alterar los servicios existentes del servidor.

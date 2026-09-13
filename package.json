@@ -28,6 +28,7 @@
     "test": "npm run test --workspaces --if-present",
     "test:fuzz": "npm run test --workspace @smarttalky/api -- src/fuzz/deterministic-fuzz.test.ts",
     "test:e2e": "npm run build && playwright test",
+    "test:e2e:staging": "playwright test --config=playwright.staging.config.mjs",
     "screenshots:capture": "npm run build && playwright test --config=playwright.screenshots.config.mjs",
     "test:mutation": "npm run build:dependencies && npm run test:mutation:shared && npm run test:mutation:api",
     "test:mutation:shared": "stryker run stryker.shared.config.json",

@@ -24,8 +24,11 @@ Este archivo rige el trabajo de cualquier agente dentro de todo el repositorio.
 - No llamar servicios pagos desde pruebas automáticas ni sin autorización/configuración explícita.
 - No implementar elementos fuera del MVP: deben registrarse en el roadmap.
 - Distinguir `release:check` (candidata local) de `predeploy:check` (puerta
-  estricta de producción). Nunca desplegar si alguna de las 13 familias
-  obligatorias de `docs/TESTING.md` está incompleta.
+  estricta de producción). Nunca desplegar a producción pública si alguna de
+  las 13 familias obligatorias de `docs/TESTING.md` está incompleta. Un staging
+  restringido puede crearse, con autorización explícita y CI verde, únicamente
+  para reunir la evidencia pendiente; no debe recibir tráfico general ni usar
+  proveedores pagos durante pruebas automáticas.
 
 ## Antes de terminar una sesión
 

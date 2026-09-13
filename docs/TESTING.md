@@ -87,6 +87,9 @@ falsamente como prueba completada.
 - Ejecutar `npm run test:e2e` contra el build y backend simulado aislado.
   Playwright usa Chromium de escritorio y móvil, y nunca hereda
   `OPENAI_API_KEY`.
+- Ejecutar `SMARTTALKY_STAGING_URL=https://... npm run test:e2e:staging` solo
+  desde un origen autorizado; valida el certificado sin excepciones, headers,
+  UI–API, audio simulado, claves estables y rechazo CORS.
 - Ejecutar `npm run performance:api`: 1.000 solicitudes, concurrencia 25,
   umbrales p95/p99 y crecimiento RSS. Una medición pagada requiere autorización
   separada.
@@ -113,6 +116,8 @@ Cada intento debe conservar:
 - excepciones vigentes;
 - resultado, incidencias, rollback y smoke posterior.
 
-Si `npm run predeploy:check` falla, no se despliega. Corregir o documentar la
-decisión del propietario no autoriza por sí solo a crear infraestructura,
-publicar una aplicación o consumir un servicio pagado.
+Si `npm run predeploy:check` falla, no se despliega a producción pública. Un
+staging restringido solo puede crearse con `release:check` y CI verdes,
+autorización explícita y el propósito de reunir evidencia pendiente. Corregir o
+documentar la decisión del propietario no autoriza por sí solo a publicar una
+aplicación ni a consumir un servicio pagado.

@@ -34,7 +34,10 @@ existir un certificado cuyo SAN incluya exactamente el subdominio. El
 certificado que hoy entrega el host corresponde a otro dominio, por lo que
 HTTPS todavía es un bloqueo real y no debe ignorarse.
 
-El despliegue público solo puede continuar cuando `npm run predeploy:check`
+El staging restringido puede prepararse después de `release:check`, CI verde y
+autorización explícita para ejecutar las pruebas que aún faltan. No equivale a
+producción, no debe quedar abierto al tráfico general y no usa llamadas pagadas
+automáticas. El despliegue público solo puede continuar cuando `npm run predeploy:check`
 termine en 13/13. En ese momento, la secuencia documentada de backup, inicio,
 smoke y rollback de [DEPLOYMENT.md](DEPLOYMENT.md) sigue siendo obligatoria.
 
