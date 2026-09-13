@@ -4,6 +4,12 @@ Todos los cambios relevantes se documentarán aquí siguiendo una estructura ins
 
 ## [Sin publicar]
 
+### Corregido
+
+- CI construye los paquetes internos antes del typecheck y mutation testing,
+  por lo que una instalación limpia ya no depende de artefactos `dist/`
+  locales; el trabajo de mutaciones dispone de un límite acorde a su duración.
+
 ### Añadido
 
 - Cuatro capturas reales y reproducibles de la aplicación en escritorio, guía,

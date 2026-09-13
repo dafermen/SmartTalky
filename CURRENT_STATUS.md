@@ -8,8 +8,8 @@
 
 SmartTalky está en una **puerta de decisiones previa a un entorno público de
 prueba**. El MVP web `0.1.0-rc.1` y la adaptación Android están implementados y
-verificados localmente. El remoto GitHub y la licencia MIT ya están definidos;
-no existe publicación ni despliegue de SmartTalky.
+verificados localmente. El remoto GitHub ya contiene la candidata documentada
+`bf9ace4`; no existe publicación ni despliegue de SmartTalky.
 
 - Fases 0–5: completas.
 - Fase 6: implementación completa; `ST-613`, `ST-614` y `ST-615` continúan
@@ -36,6 +36,9 @@ no existe publicación ni despliegue de SmartTalky.
 - `ST-631` está completa: cuatro capturas reales, E2E Playwright, línea base
   de carga, Docker Compose/Nginx endurecidos, remoto GitHub e inspección segura
   del servidor quedaron preparados sin publicación.
+- `ST-632` está en progreso: el primer CI remoto reveló que el typecheck y
+  mutation testing dependían de artefactos internos precompilados; la corrección
+  construye las dependencias primero y espera confirmación del segundo CI.
 
 ## Funcionalidad terminada
 
@@ -85,6 +88,11 @@ concurrencia 25. Docker Compose construyó ambas imágenes y el smoke local
 confirmó web, salud, pronunciación e imagen documental HTTP 200; la API no
 publicó puerto y ambos contenedores quedaron saludables.
 
+Después del primer push, la réplica limpia de `ST-632` pasó typecheck y las dos
+campañas de mutaciones desde cero. `release:check` volvió a quedar verde con
+402,5 solicitudes/segundo, p95 96,2 ms, p99 131,7 ms y 54,3 MiB RSS. El trabajo
+de mutaciones dispone ahora de 20 minutos para su duración real.
+
 La última sincronización y verificación Android permanece verde desde
 2026-07-29. `ST-625` cambia únicamente la navegación web documental y no volvió
 a generar el paquete Android.
@@ -130,8 +138,8 @@ consulta nueva sí puede hacerlo cuando la clave está configurada.
 
 ## GitHub e infraestructura autorizada
 
-- Remoto: `https://github.com/dafermen/SmartTalky.git`; `origin/main`
-  conservó su commit inicial con licencia MIT.
+- Remoto: `https://github.com/dafermen/SmartTalky.git`; `origin/main` contiene
+  la candidata `bf9ace4` además del commit inicial con licencia MIT.
 - Servidor: Ubuntu 24.04, Docker 29.8, Compose 5.5, Nginx 1.24 y Certbot 2.9.
 - DNS: `smarttalky.innovalogic.tech` resuelve al servidor autorizado.
 - 5180/5181 están ocupados por otro producto; SmartTalky reserva 5182 solo en
@@ -165,7 +173,7 @@ habilitar el servicio público.
 
 Antes de publicar:
 
-1. actualizar GitHub con el commit preparado y verificar CI;
+1. enviar la corrección reproducible `ST-632` y verificar CI remoto verde;
 2. obtener aceptación visual del propietario;
 3. preparar staging HTTPS con secretos, CORS y presupuesto administrados;
 4. ejecutar E2E, seguridad, carga, rollback y smoke;
