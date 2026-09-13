@@ -41,9 +41,9 @@ El proxy externo sobrescribe `X-Forwarded-For` con `$remote_addr` antes de
 que el proxy interno lo amplíe.
 
 El subdominio resuelve al servidor autorizado, pero el certificado observado el
-2026-09-13 corresponde a otro dominio. No se debe ignorar la advertencia TLS ni
-habilitar la configuración final hasta emitir y verificar el certificado de
-`smarttalky.innovalogic.tech`.
+2026-09-13 correspondía a otro dominio. El staging ya usa un certificado válido
+de `smarttalky.innovalogic.tech`, cuya renovación simulada pasó, y permanece
+restringido por IP. Esta evidencia no autoriza retirar la restricción.
 
 ## Antes de producción
 
@@ -64,3 +64,9 @@ producción con React Router 7.18.3 y `qs` 6.16.0. La auditoría completa conser
 cinco avisos moderados en Vitest/Stryker. Son herramientas de desarrollo y no se
 empaquetan en web/API, pero deben revisarse cuando exista una versión compatible;
 no se autoriza `npm audit fix --force` para ocultarlos mediante cambios mayores.
+La puerta de seguridad permanece parcial hasta que el propietario acepte
+formalmente este riesgo residual o exista una actualización compatible.
+
+El staging confirmó además HSTS/CSP, CORS, UFW activo, acceso permitido 200 y
+origen no autorizado 403, API sin puerto público, usuarios no root, raíz de solo
+lectura y capacidades Linux eliminadas.

@@ -12,6 +12,9 @@ Todos los cambios relevantes se documentarán aquí siguiendo una estructura ins
 
 ### Añadido
 
+- Staging HTTPS restringido con certificado renovable, pruebas externas,
+  medición de 5.000 solicitudes, ensayo de rollback y caché real con proveedor
+  falso explícito para validar sin OpenAI.
 - Cuatro capturas reales y reproducibles de la aplicación en escritorio, guía,
   centro documental y viewport móvil.
 - Playwright E2E para el build empaquetado en Chromium de escritorio y móvil,

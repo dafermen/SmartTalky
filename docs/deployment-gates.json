@@ -73,12 +73,13 @@
     {
       "id": 8,
       "name": "Pruebas de extremo a extremo",
-      "status": "partial",
+      "status": "complete",
       "requiredBeforePublicDeployment": true,
       "evidence": [
         "Playwright verifica el build real con API simulada en Chromium de escritorio y móvil.",
         "El recorrido cubre práctica UI-API, datos educativos, documentación, imágenes publicadas y ausencia de overflow, sin OpenAI.",
-        "Faltan el recorrido automatizado contra staging HTTPS y las ramas operativas de audio/caché antes de declarar la puerta completa."
+        "Staging HTTPS restringido completó 10 recorridos en Chromium de escritorio y móvil con certificado estricto, headers, CORS y audio simulado.",
+        "Dos recorridos consecutivos conservaron exactamente seis artefactos de audio/metadatos y su huella, demostrando reutilización de la caché real sin OpenAI."
       ]
     },
     {
@@ -98,7 +99,8 @@
       "evidence": [
         "Hay pruebas de entrada, headers, rutas, secretos, fuzzing, mutaciones y npm audit.",
         "npm audit --omit=dev informa cero vulnerabilidades desde React Router 7.18.3 y qs 6.16.0.",
-        "Cinco avisos moderados permanecen solo en herramientas de desarrollo; falta seguimiento compatible y probar la infraestructura pública."
+        "Cinco avisos moderados permanecen solo en herramientas de desarrollo; falta seguimiento compatible o aceptación formal del propietario.",
+        "Staging confirmó TLS válido, HSTS/CSP, CORS, UFW activo, acceso por IP, API sin puerto público, usuarios no root, raíz de solo lectura y capacidades Linux eliminadas."
       ]
     },
     {
@@ -113,23 +115,26 @@
     {
       "id": 12,
       "name": "Rendimiento y recursos",
-      "status": "partial",
+      "status": "complete",
       "requiredBeforePublicDeployment": true,
       "evidence": [
         "El bundle web tiene presupuesto automático y las cachés tienen límites LRU.",
         "La línea base reproducible ejecuta 1.000 solicitudes con concurrencia 25 y umbrales para p95, p99 y crecimiento RSS; release:check obtuvo 451,3 req/s, p95 81,3 ms, p99 121,6 ms y 53,9 MiB el 2026-09-13.",
         "El servidor autorizado dispone de 8 GiB de RAM, aproximadamente 6 GiB disponibles y 26 GiB libres.",
-        "Faltan carga y observación en staging HTTPS, CPU/disco/red y presupuesto operativo antes de declarar la puerta completa."
+        "Staging procesó 5.000 solicitudes HTTPS con concurrencia 25 a 704,4 req/s, p95 51,5 ms, p99 94,0 ms y cero fallos.",
+        "Durante la carga, API/web alcanzaron aproximadamente 61%/28% CPU y 64/5 MiB; el host quedó en 1,9/7,9 GiB de RAM, disco al 75% y sin crecimiento de caché por la ruta de salud. El proveedor simulado mantuvo costo externo cero."
       ]
     },
     {
       "id": 13,
       "name": "Compatibilidad y despliegue",
-      "status": "partial",
+      "status": "complete",
       "requiredBeforePublicDeployment": true,
       "evidence": [
         "CI está preparada para Node 22/24 y Android fue verificado en API 35/36.",
-        "Faltan staging HTTPS, configuración productiva, licencia, firma Release, rollback y smoke posterior al despliegue."
+        "Staging restringido ejecuta el commit c01cdc1 con Docker Compose, Nginx, licencia MIT, certificado válido y renovación simulada correcta.",
+        "El rollback de etiquetas Docker y configuración Nginx fue ensayado y restaurado; health, smoke HTTPS, acceso autorizado 200 y origen no autorizado 403 quedaron verificados.",
+        "La firma Android Release permanece en su flujo móvil separado y no bloquea el despliegue web solicitado."
       ]
     }
   ]

@@ -7,6 +7,10 @@ detallada está en
 [despliegue](10-despliegue.md) y el estado actual en
 [`CURRENT_STATUS.md`](../CURRENT_STATUS.md).
 
+Desde 2026-09-13 existe un staging HTTPS restringido al origen autorizado, en
+el commit `c01cdc1`, con proveedor falso y caché real. No es producción pública:
+la matriz permanece en 11/13 y Nginx devuelve 403 a otros orígenes.
+
 ## Entornos
 
 | Entorno | Objetivo | Datos/proveedor |

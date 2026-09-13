@@ -26,12 +26,12 @@ falsamente como prueba completada.
 | 5 | Fuzzing | Entradas inesperadas no causan escapes, bloqueos ni corrupción. | Completa: semilla fija y más de 3.200 casos para Unicode, JSON, claves y caché mediante `test:fuzz`. |
 | 6 | Integración | Capas reales colaboran correctamente sin depender de servicios pagos. | Express + Supertest, repositorios y cliente web con proveedores simulados. |
 | 7 | Contrato | Consumidores y servidor comparten formatos compatibles. | Zod, TypeScript y OpenAPI 3.1 verifican esquemas, ejemplos, referencias y operaciones. |
-| 8 | Extremo a extremo | El producto empaquetado completa el recorrido desde UI hasta API/audio. | Playwright cubre práctica UI–API, documentación, imágenes y responsive con build/backend simulado; faltan staging HTTPS y ramas de audio/caché. |
+| 8 | Extremo a extremo | El producto empaquetado completa el recorrido desde UI hasta API/audio. | Completa: Playwright cubre build local y staging HTTPS restringido en escritorio/móvil, además de audio y reutilización de caché real con proveedor falso. |
 | 9 | Regresión | Capacidades ya aprobadas permanecen estables. | `release:check`, corpus y demo reproducible. |
 | 10 | Seguridad | No se filtran secretos/datos y las defensas resisten abuso autorizado. | Pruebas de entradas, headers, rutas, bundle y auditoría; faltan infraestructura pública y resolución/aceptación de avisos. |
 | 11 | Concurrencia y resiliencia | Duplicados, timeout, reintentos, fallos parciales y límites se controlan. | Dedupe concurrente, publicación atómica, recuperación y rate limit automatizados. |
-| 12 | Rendimiento y recursos | Latencia, memoria, CPU, disco, red y costo cumplen presupuestos. | Bundle/LRU y carga local miden req/s, p95, p99 y RSS; faltan CPU/disco/red y medición equivalente en staging. |
-| 13 | Compatibilidad y despliegue | Versiones soportadas, migración, configuración, rollback y smoke funcionan. | Node 22/24 y Android API 35/36; faltan staging HTTPS, Release, rollback y smoke público. |
+| 12 | Rendimiento y recursos | Latencia, memoria, CPU, disco, red y costo cumplen presupuestos. | Completa: bundle/LRU, carga local y 5.000 solicitudes HTTPS en staging con CPU, memoria, disco y red observados; costo externo cero. |
+| 13 | Compatibilidad y despliegue | Versiones soportadas, migración, configuración, rollback y smoke funcionan. | Completa para web: Node 22/24, Docker/Nginx, certificado/renovación, configuración, rollback y smoke restringido verificados. Android API 35/36 conserva su flujo Release separado. |
 
 ## Criterios mínimos para completar las brechas
 

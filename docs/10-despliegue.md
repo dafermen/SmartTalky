@@ -31,8 +31,10 @@ docker compose --env-file .env.production -f compose.production.yml build
 La configuración del Nginx del host está en
 `deploy/nginx/smarttalky.innovalogic.tech.conf`. Antes de habilitarla debe
 existir un certificado cuyo SAN incluya exactamente el subdominio. El
-certificado que hoy entrega el host corresponde a otro dominio, por lo que
-HTTPS todavía es un bloqueo real y no debe ignorarse.
+staging ya usa un certificado válido de `smarttalky.innovalogic.tech`, con
+renovación simulada correcta y restricción por IP. No se debe sustituir su
+configuración por la de producción abierta mientras la matriz esté por debajo
+de 13/13.
 
 El staging restringido puede prepararse después de `release:check`, CI verde y
 autorización explícita para ejecutar las pruebas que aún faltan. No equivale a

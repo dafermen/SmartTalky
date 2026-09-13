@@ -6,11 +6,10 @@
 
 ## Punto actual
 
-SmartTalky está en una **puerta de decisiones previa a un entorno público de
-prueba**. El MVP web `0.1.0-rc.1` y la adaptación Android están implementados y
-verificados localmente. El remoto GitHub ya contiene la candidata documentada
-y su corrección reproducible `97fcbd8`; no existe publicación ni despliegue de
-SmartTalky.
+SmartTalky está en una **puerta de decisiones previa a producción pública**. El
+MVP web `0.1.0-rc.1` y Android están implementados. GitHub contiene `c01cdc1` y
+el staging HTTPS restringido ejecuta ese commit sin OpenAI; producción pública
+permanece bloqueada.
 
 - Fases 0–5: completas.
 - Fase 6: implementación completa; `ST-613`, `ST-614` y `ST-615` continúan
@@ -39,8 +38,8 @@ SmartTalky.
   del servidor quedaron preparados sin publicación.
 - `ST-632` está completa: typecheck y mutation testing construyen primero sus
   dependencias internas; el CI remoto quedó verde desde un checkout limpio.
-- `ST-633` está en progreso: el propietario autorizó continuar con un staging
-  HTTPS restringido para reunir evidencia, sin habilitar producción pública.
+- `ST-633` está completa: staging HTTPS restringido, certificado, E2E, caché,
+  carga, seguridad de infraestructura, smoke y rollback quedaron verificados.
 
 ## Funcionalidad terminada
 
@@ -73,7 +72,7 @@ SmartTalky.
 `npm run release:check` quedó verde el 2026-09-13:
 
 - formato, lint y TypeScript estricto;
-- 46 pruebas shared, 84 web y 141 API: 271 pruebas runtime;
+- 46 pruebas shared, 84 web y 142 API: 272 pruebas runtime;
 - 8 E2E Playwright en Chromium de escritorio y móvil;
 - builds de workspaces;
 - bundle sin secretos;
@@ -96,6 +95,13 @@ campañas de mutaciones desde cero. `release:check` volvió a quedar verde con
 de mutaciones dispone ahora de 20 minutos para su duración real. El CI remoto
 34780746302 confirmó Node 22/24, 8 E2E, Docker y mutaciones en verde.
 
+El commit `c01cdc1` también pasó CI remoto 34782577814 y `release:check` con
+272 pruebas runtime. Staging completó 10 E2E HTTPS dos veces; conservó seis
+artefactos de audio/metadatos con huella idéntica y OpenAI vacío. La carga de
+5.000 solicitudes obtuvo 704,4 req/s, p95 51,5 ms, p99 94,0 ms y cero fallos.
+API/web alcanzaron aproximadamente 61%/28% CPU y 64/5 MiB; el host quedó en
+1,9/7,9 GiB usados y disco al 75%.
+
 La última sincronización y verificación Android permanece verde desde
 2026-07-29. `ST-625` cambia únicamente la navegación web documental y no volvió
 a generar el paquete Android.
@@ -113,15 +119,13 @@ de versiones compatibles.
 
 ## Puerta previa al despliegue
 
-`npm run deployment:status` informa **8 de 13 puertas completas**. El modo
+`npm run deployment:status` informa **11 de 13 puertas completas**. El modo
 estricto fue probado y bloquea correctamente un despliegue. Permanecen
 incompletas:
 
 1. aceptación visual final;
-2. repetir E2E de audio/caché en staging HTTPS;
-3. seguridad de infraestructura y tratamiento formal de avisos;
-4. carga sostenida con CPU/disco/red en staging;
-5. certificado correcto, staging, rollback y smoke HTTPS público.
+2. aceptación formal o actualización compatible de cinco avisos moderados que
+   solo afectan herramientas de desarrollo.
 
 `npm run predeploy:check` debe fallar mientras exista cualquiera de estas
 brechas. La matriz autoritativa está en `docs/deployment-gates.json`.
@@ -142,23 +146,26 @@ consulta nueva sí puede hacerlo cuando la clave está configurada.
 ## GitHub e infraestructura autorizada
 
 - Remoto: `https://github.com/dafermen/SmartTalky.git`; `origin/main` contiene
-  la candidata y la corrección `97fcbd8`, con CI remoto verde.
+  `c01cdc1`, con CI remoto verde.
 - Servidor: Ubuntu 24.04, Docker 29.8, Compose 5.5, Nginx 1.24 y Certbot 2.9.
 - DNS: `smarttalky.innovalogic.tech` resuelve al servidor autorizado.
 - 5180/5181 están ocupados por otro producto; SmartTalky reserva 5182 solo en
   loopback.
-- El certificado servido actualmente pertenece a otro dominio. No ignorar la
-  advertencia ni habilitar producción antes de emitir el certificado correcto.
+- Staging sirve un certificado válido para `smarttalky.innovalogic.tech`, con
+  vencimiento 2026-12-12 y renovación simulada satisfactoria.
+- Solo el origen autorizado accede al staging; otro origen obtuvo HTTP 403.
 - La ruta SSH local y la clave privada nunca se documentan ni versionan.
 
 ## Pendientes que requieren al propietario
 
 1. Aceptar o solicitar cambios visuales de `ST-613`, `ST-614` y `ST-615`.
-2. Confirmar identificador Android definitivo.
-3. Aprobar política de privacidad pública.
-4. Definir presupuesto mensual, cuota compartida y alertas del proveedor.
-5. Proveer o autorizar credenciales de firma Release y publicación.
-6. Revisar los resultados del staging autorizado y dar o negar la aprobación
+2. Aceptar formalmente el riesgo residual dev-only o solicitar esperar una
+   actualización compatible; no se recomienda `npm audit fix --force`.
+3. Confirmar identificador Android definitivo.
+4. Aprobar política de privacidad pública.
+5. Definir presupuesto mensual, cuota compartida y alertas del proveedor.
+6. Proveer o autorizar credenciales de firma Release y publicación.
+7. Revisar los resultados del staging autorizado y dar o negar la aprobación
    final de producción cuando las 13 puertas estén completas.
 
 No crear cuentas, claves, releases ni publicaciones suponiendo estas
@@ -167,19 +174,19 @@ habilitar el servicio público.
 
 ## Pendientes técnicos previos a producción
 
-1. Repetir E2E y carga sobre staging HTTPS, incluyendo audio/caché y
-   CPU/disco/red.
-2. Completar seguridad, compatibilidad, certificado, rollback y smoke en la
-   infraestructura autorizada.
+1. Resolver las dos decisiones pendientes de aceptación y seguridad.
+2. Antes de producción, configurar el secreto OpenAI directamente en el
+   servidor y desactivar `CACHED_FAKE_PROVIDER_ENABLED`, sin copiarlo al Git.
 
 ## Próximo paso recomendado
 
 Antes de publicar:
 
-1. preparar el staging HTTPS restringido autorizado, sin proveedor pago;
-2. obtener aceptación visual del propietario;
-3. ejecutar E2E, seguridad, carga, rollback y smoke;
-4. repetir `npm run predeploy:check` hasta obtener 13/13;
+1. obtener aceptación visual y decisión sobre el riesgo dev-only;
+2. actualizar la matriz únicamente con esas decisiones explícitas;
+3. repetir `npm run predeploy:check` hasta obtener 13/13;
+4. configurar el proveedor real y retirar la restricción solo con aprobación de
+   producción;
 5. generar un AAB Release sin publicar y probarlo en el canal interno de Google
    Play solo con autorización explícita.
 

@@ -6,16 +6,16 @@ Mantener una fotografía inequívoca del proyecto para futuras sesiones de Codex
 
 ## Estado operativo
 
-- **Última tarea completada:** `ST-632` — CI reproducible desde checkout limpio.
-- **Tarea actual:** `ST-633` — staging HTTPS restringido para completar evidencia operativa.
+- **Última tarea completada:** `ST-633` — staging HTTPS restringido y evidencia operativa.
+- **Tarea actual:** ninguna `EN_PROGRESO`; quedan dos decisiones del propietario.
 - **Fase 2:** completada.
 - **Fase 3:** completada; diez de diez tareas verificadas.
 - **Fase 4:** completada; doce de doce tareas verificadas.
 - **Fase 5:** completada; nueve de nueve tareas verificadas.
-- **Fase 6:** implementación completa; `ST-631` preparó capturas, E2E, carga, GitHub y contenedores, y la puerta estricta conserva 8/13 familias completas.
+- **Fase 6:** implementación completa; staging restringido avanzó la puerta estricta a 11/13 familias completas.
 - **Fase 7:** `ST-701` y `ST-702` completadas; `ST-703` preparada hasta el límite verificable en Windows.
 - **Fase 8:** completada localmente; paquete, dos versiones Android, firma Debug, privacidad y checklist verificados sin publicar.
-- **Próxima tarea:** completar el staging restringido autorizado y sus pruebas; producción exige 13/13.
+- **Próxima tarea:** aceptación visual y decisión formal sobre avisos dev-only; producción exige 13/13.
 - **Reanudación obligatoria:** leer `CURRENT_STATUS.md` y ejecutar `npm run continuity:check` antes de elegir trabajo.
 
 ## Cambios implementados
@@ -574,3 +574,26 @@ Para continuar, usar `CURRENT_STATUS.md` como fotografía vigente. La siguiente 
   siendo obligatorio antes de producción.
 - El staging no debe usar automáticamente OpenAI, aceptar tráfico general ni
   alterar los servicios existentes del servidor.
+
+## Staging HTTPS verificado — 2026-09-13
+
+- `ST-633` desplegó `c01cdc1` en `/opt/smarttalky` mediante Docker Compose. Web
+  publica solo `127.0.0.1:5182`; API no publica puerto; ambos contenedores están
+  saludables, no son privilegiados, eliminan capacidades y usan raíz de solo
+  lectura. UFW permanece activo.
+- Let's Encrypt emitió el certificado de `smarttalky.innovalogic.tech`, con
+  vencimiento 2026-12-12; la renovación simulada pasó. Nginx permite únicamente
+  el origen autorizado: acceso permitido 200 y prueba desde otro origen 403.
+- Dos ejecuciones de 10 E2E HTTPS en escritorio/móvil verificaron UI–API,
+  documentación, certificado, headers, CORS, audio y caché real. Seis artefactos
+  de audio/metadatos conservaron cantidad, bytes y huella; OpenAI estuvo vacío.
+- 5.000 solicitudes HTTPS con concurrencia 25 alcanzaron 704,4 req/s, p95 51,5
+  ms, p99 94,0 ms y cero fallos. API/web observaron picos aproximados de
+  61%/28% CPU y 64/5 MiB; host 1,9/7,9 GiB y disco 75%.
+- Rollback de etiquetas Docker y Nginx fue ensayado y restaurado. El primer
+  chequeo Nginx no observó a tiempo el reload, el trap restauró correctamente y
+  la repetición con espera activa pasó.
+- Las puertas 8, 12 y 13 quedaron completas; la puerta 10 conserva solo los
+  cinco avisos moderados dev-only y la 1 espera aceptación visual. Estado 11/13;
+  producción continúa bloqueada y el staging usa proveedor falso con caché.
+- `ST-633` quedó `COMPLETADA`; no existe una tarea `EN_PROGRESO`.
