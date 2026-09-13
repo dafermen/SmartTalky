@@ -6,8 +6,8 @@ Mantener una fotografía inequívoca del proyecto para futuras sesiones de Codex
 
 ## Estado operativo
 
-- **Última tarea completada:** `ST-631` — evidencia visual, GitHub y preparación Docker/Nginx.
-- **Tarea actual:** `ST-632` — corregir y confirmar CI reproducible desde checkout limpio.
+- **Última tarea completada:** `ST-632` — CI reproducible desde checkout limpio.
+- **Tarea actual:** ninguna `EN_PROGRESO`; `ST-613`, `ST-614` y `ST-615` esperan aceptación visual del propietario.
 - **Fase 2:** completada.
 - **Fase 3:** completada; diez de diez tareas verificadas.
 - **Fase 4:** completada; doce de doce tareas verificadas.
@@ -15,7 +15,7 @@ Mantener una fotografía inequívoca del proyecto para futuras sesiones de Codex
 - **Fase 6:** implementación completa; `ST-631` preparó capturas, E2E, carga, GitHub y contenedores, y la puerta estricta conserva 8/13 familias completas.
 - **Fase 7:** `ST-701` y `ST-702` completadas; `ST-703` preparada hasta el límite verificable en Windows.
 - **Fase 8:** completada localmente; paquete, dos versiones Android, firma Debug, privacidad y checklist verificados sin publicar.
-- **Próxima tarea:** confirmar el segundo CI remoto y solo después preparar staging HTTPS; producción exige 13/13.
+- **Próxima tarea:** completar aceptación y las pruebas de staging HTTPS; producción exige 13/13.
 - **Reanudación obligatoria:** leer `CURRENT_STATUS.md` y ejecutar `npm run continuity:check` antes de elegir trabajo.
 
 ## Cambios implementados
@@ -559,5 +559,8 @@ Para continuar, usar `CURRENT_STATUS.md` como fotografía vigente. La siguiente 
 - `release:check` volvió a quedar verde con 271 pruebas runtime, 8 E2E, build,
   bundle seguro, carga, 42 documentos, 738 licencias, continuidad y demo
   simulada. No se usó red de proveedores ni OpenAI.
-- `ST-632` permanece `EN_PROGRESO` hasta que el segundo CI remoto quede verde;
-  el servidor y el despliegue público continúan sin cambios.
+- El CI remoto 34780746302 terminó verde: Node 22, Node 24, Docker y mutation
+  testing pasaron desde un checkout limpio. `ST-632` quedó `COMPLETADA` y no
+  existe una tarea `EN_PROGRESO`.
+- El servidor y el despliegue público continúan sin cambios; la próxima tarea
+  debe cerrar aceptación y pruebas de staging sin relajar la condición 13/13.
