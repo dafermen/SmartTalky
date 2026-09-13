@@ -1,0 +1,12 @@
+{
+  "name": "@smarttalky/config",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Configuración común de herramientas de SmartTalky.",
+  "exports": {
+    "./typescript/base.json": "./typescript/base.json",
+    "./typescript/bundler.json": "./typescript/bundler.json",
+    "./typescript/node.json": "./typescript/node.json",
+    "./typescript/react.json": "./typescript/react.json"
+  }
+}

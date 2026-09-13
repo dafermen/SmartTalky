@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "history": [
+    {
+      "id": "comfortable",
+      "text": "comfortable",
+      "locale": "en-US",
+      "accessedAt": "2026-07-02T10:00:00.000Z"
+    }
+  ],
+  "favorites": [
+    {
+      "id": "hello",
+      "text": "hello",
+      "locale": "en-US",
+      "createdAt": "2026-07-02T11:00:00.000Z"
+    }
+  ]
+}

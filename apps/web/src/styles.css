@@ -1,0 +1,122 @@
+@import 'tailwindcss';
+@source '../../../packages/ui/src';
+
+@theme {
+  --font-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  --color-brand-primary: #4f46e5;
+  --color-brand-primary-hover: #3730a3;
+  --color-brand-secondary: #0f766e;
+  --color-brand-accent: #f59e0b;
+  --color-brand-soft: #eeedff;
+  --color-secondary-soft: #e7f6f3;
+  --color-surface: #fafaf7;
+  --color-surface-raised: #ffffff;
+  --color-surface-muted: #f4f3ee;
+  --color-ink: #172033;
+  --color-ink-muted: #526075;
+  --color-border: #d7dce5;
+  --color-focus: #4338ca;
+  --color-success-surface: #dcfce7;
+  --color-success-ink: #166534;
+  --color-error-surface: #fee2e2;
+  --color-error-ink: #991b1b;
+  --color-stress-surface: #fef3c7;
+  --color-stress-ink: #92400e;
+  --radius-control: 0.75rem;
+  --radius-card: 1.25rem;
+  --shadow-card: 0 1.25rem 3.5rem rgb(23 32 51 / 8%);
+  --shadow-control: 0 0 0 0.25rem rgb(67 56 202 / 18%);
+}
+
+:root {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-surface);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+html[data-documentation-theme='dark'] {
+  color-scheme: dark;
+  --color-brand-primary: #a5b4fc;
+  --color-brand-primary-hover: #c7d2fe;
+  --color-brand-secondary: #5eead4;
+  --color-brand-soft: #25284a;
+  --color-secondary-soft: #123c3a;
+  --color-surface: #111827;
+  --color-surface-raised: #182235;
+  --color-surface-muted: #202b3d;
+  --color-ink: #f8fafc;
+  --color-ink-muted: #bac5d6;
+  --color-border: #3b475b;
+  --color-focus: #c7d2fe;
+  --color-stress-surface: #493512;
+  --color-stress-ink: #fde68a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 8% 4%, rgb(79 70 229 / 7%), transparent 28rem),
+    var(--color-surface);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button:not(:disabled),
+[href],
+label[for] {
+  cursor: pointer;
+}
+
+::selection {
+  color: var(--color-ink);
+  background: var(--color-stress-surface);
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 50;
+  top: 0.75rem;
+  left: 0.75rem;
+  transform: translateY(-200%);
+  border-radius: var(--radius-control);
+  background: #172033;
+  color: white;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

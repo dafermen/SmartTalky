@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-13",
+  "scope": "public-production-deployment",
+  "gates": [
+    {
+      "id": 1,
+      "name": "Pruebas de aceptación",
+      "status": "partial",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "La demo automatizada y los recorridos web/Android están verificados.",
+        "Falta la aceptación visual final del propietario para ST-613, ST-614 y ST-615."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Pruebas unitarias",
+      "status": "complete",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "npm test cubre paquetes compartidos, web y API sin red ni servicios pagos."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Pruebas de propiedades e invariantes",
+      "status": "complete",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "Normalización Unicode, identidad de caché, contratos y corpus lingüístico fijan invariantes del dominio."
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Mutation testing",
+      "status": "complete",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "Stryker 10 verifica normalización y contratos compartidos con 98,63% y umbral 98%.",
+        "Identidad de audio, presupuesto, CORS, rate limit y errores seguros alcanzan 97,75% con umbral 97%.",
+        "Los informes JSON conservan 251 mutantes: 240 eliminados, seis controlados por timeout y cinco equivalentes visibles; CI y predeploy ejecutan ambos umbrales."
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Fuzzing",
+      "status": "complete",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "npm run test:fuzz ejecuta más de 3.200 casos reproducibles con semilla 0x5eedc0de.",
+        "Unicode, JSON aleatorio/profundo, claves opacas, metadatos truncados y entradas de caché inconsistentes conservan sus invariantes sin red ni datos reales."
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Pruebas de integración",
+      "status": "complete",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "Supertest valida la aplicación Express y la web valida su cliente contra contratos compartidos."
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Pruebas de contrato",
+      "status": "complete",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "OpenAPI 3.1, Zod y pruebas de tipos verifican solicitudes, respuestas, referencias y ejemplos."
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Pruebas de extremo a extremo",
+      "status": "partial",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "Playwright verifica el build real con API simulada en Chromium de escritorio y móvil.",
+        "El recorrido cubre práctica UI-API, datos educativos, documentación, imágenes publicadas y ausencia de overflow, sin OpenAI.",
+        "Faltan el recorrido automatizado contra staging HTTPS y las ramas operativas de audio/caché antes de declarar la puerta completa."
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Pruebas de regresión",
+      "status": "complete",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "npm run release:check consolida la suite estable, builds, demo y verificaciones documentales."
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Pruebas de seguridad",
+      "status": "partial",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "Hay pruebas de entrada, headers, rutas, secretos, fuzzing, mutaciones y npm audit.",
+        "npm audit --omit=dev informa cero vulnerabilidades desde React Router 7.18.3 y qs 6.16.0.",
+        "Cinco avisos moderados permanecen solo en herramientas de desarrollo; falta seguimiento compatible y probar la infraestructura pública."
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Concurrencia y resiliencia",
+      "status": "complete",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "Deduplicación concurrente, publicación atómica, timeout, reintentos, rate limit y recuperación tienen pruebas automatizadas."
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Rendimiento y recursos",
+      "status": "partial",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "El bundle web tiene presupuesto automático y las cachés tienen límites LRU.",
+        "La línea base reproducible ejecuta 1.000 solicitudes con concurrencia 25 y umbrales para p95, p99 y crecimiento RSS; release:check obtuvo 451,3 req/s, p95 81,3 ms, p99 121,6 ms y 53,9 MiB el 2026-09-13.",
+        "El servidor autorizado dispone de 8 GiB de RAM, aproximadamente 6 GiB disponibles y 26 GiB libres.",
+        "Faltan carga y observación en staging HTTPS, CPU/disco/red y presupuesto operativo antes de declarar la puerta completa."
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Compatibilidad y despliegue",
+      "status": "partial",
+      "requiredBeforePublicDeployment": true,
+      "evidence": [
+        "CI está preparada para Node 22/24 y Android fue verificado en API 35/36.",
+        "Faltan staging HTTPS, configuración productiva, licencia, firma Release, rollback y smoke posterior al despliegue."
+      ]
+    }
+  ]
+}

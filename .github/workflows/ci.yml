@@ -1,0 +1,126 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Node ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [22.x, 24.x]
+
+    steps:
+      - name: Obtener el repositorio
+        uses: actions/checkout@v7
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Instalar dependencias reproducibles
+        run: npm ci
+
+      - name: Verificar formato
+        run: npm run format:check
+
+      - name: Ejecutar lint
+        run: npm run lint
+
+      - name: Verificar tipos
+        run: npm run typecheck
+
+      - name: Ejecutar pruebas
+        run: npm test
+
+      - name: Compilar aplicaciones y paquetes
+        run: npm run build
+
+      - name: Instalar Chromium para E2E
+        run: npx playwright install --with-deps chromium
+
+      - name: Ejecutar recorrido E2E empaquetado
+        run: npm run test:e2e:built
+
+      - name: Verificar secretos en el bundle web
+        run: npm run security:bundle
+
+      - name: Verificar presupuesto de rendimiento web
+        run: npm run performance:web
+
+      - name: Verificar enlaces de documentación
+        run: npm run docs:check
+
+      - name: Verificar estructura documental y licencias
+        run: npm run docs:structure && npm run licenses:check
+
+      - name: Verificar continuidad
+        run: npm run continuity:check
+
+      - name: Verificar demo gratuita
+        run: npm run demo:check
+
+  mutation:
+    name: Mutation testing
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Obtener el repositorio
+        uses: actions/checkout@v7
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24.x
+          cache: npm
+
+      - name: Instalar dependencias reproducibles
+        run: npm ci
+
+      - name: Verificar mutaciones críticas compartidas
+        run: npm run test:mutation
+
+  container:
+    name: Docker de producción
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SMARTTALKY_ENV_FILE: .env.production.example
+      SMARTTALKY_IMAGE_TAG: ci
+
+    steps:
+      - name: Obtener el repositorio
+        uses: actions/checkout@v7
+
+      - name: Validar Docker Compose
+        run: docker compose -f compose.production.yml config --quiet
+
+      - name: Construir imágenes
+        run: docker compose -f compose.production.yml build
+
+      - name: Iniciar contenedores aislados
+        run: docker compose -f compose.production.yml up -d --wait
+
+      - name: Ejecutar smoke de web, API e imágenes
+        run: |
+          curl --fail --silent --show-error http://127.0.0.1:5182/ >/dev/null
+          curl --fail --silent --show-error http://127.0.0.1:5182/api/v1/health >/dev/null
+          curl --fail --silent --show-error http://127.0.0.1:5182/documentacion/docs/images/smarttalky-inicio-escritorio.png >/dev/null
+
+      - name: Retirar contenedores
+        if: always()
+        run: docker compose -f compose.production.yml down

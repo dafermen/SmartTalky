@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "testRunner": "command",
+  "mutate": [
+    "packages/shared/src/normalize-pronunciation-text.ts",
+    "packages/shared/src/pronunciation-text.ts",
+    "packages/shared/src/pronunciation-contracts.ts"
+  ],
+  "commandRunner": {
+    "command": "npm run test --workspace @smarttalky/shared"
+  },
+  "reporters": ["clear-text", "json"],
+  "jsonReporter": {
+    "fileName": "docs/evidence/mutation/shared-baseline.json"
+  },
+  "thresholds": {
+    "high": 98,
+    "low": 98,
+    "break": 98
+  },
+  "concurrency": 4,
+  "timeoutMS": 10000,
+  "tempDirName": ".stryker-tmp",
+  "ignorePatterns": ["android", "ios", "apps", "storage", "apps/web/public/documentacion"]
+}

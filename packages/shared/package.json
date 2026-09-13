@@ -1,0 +1,30 @@
+{
+  "name": "@smarttalky/shared",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Utilidades y valores compartidos por SmartTalky.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run src"
+  },
+  "dependencies": {
+    "@smarttalky/types": "0.0.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@smarttalky/config": "0.0.0",
+    "@types/node": "26.1.1",
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}

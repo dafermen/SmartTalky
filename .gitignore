@@ -1,0 +1,30 @@
+# Dependencias y builds
+node_modules/
+apps/web/public/documentacion/
+dist/
+coverage/
+.stryker-tmp/
+playwright-report/
+test-results/
+
+# Variables locales y secretos
+.env
+.env.*
+!.env.example
+!.env.production.example
+
+# Caché y datos generados
+storage/audio-cache/*
+!storage/audio-cache/.gitkeep
+storage/educational-cache/*
+!storage/educational-cache/.gitkeep
+storage/data/*
+!storage/data/.gitkeep
+
+# Archivos temporales y del sistema
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

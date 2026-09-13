@@ -1,0 +1,267 @@
+[
+  { "text": "hello", "kind": "word", "tags": ["baseline", "stress"], "minSegments": 2 },
+  {
+    "text": "comfortable",
+    "kind": "word",
+    "tags": ["reduction", "stress"],
+    "minSegments": 3
+  },
+  { "text": "world", "kind": "word", "tags": ["r-colored"], "minSegments": 1 },
+  { "text": "thought", "kind": "word", "tags": ["th", "vowel"], "minSegments": 1 },
+  { "text": "through", "kind": "word", "tags": ["th", "spelling"], "minSegments": 1 },
+  { "text": "though", "kind": "word", "tags": ["th", "spelling"], "minSegments": 1 },
+  { "text": "tough", "kind": "word", "tags": ["spelling"], "minSegments": 1 },
+  { "text": "enough", "kind": "word", "tags": ["spelling", "stress"], "minSegments": 2 },
+  {
+    "text": "schedule",
+    "kind": "word",
+    "tags": ["en-US", "affricate"],
+    "minSegments": 2
+  },
+  { "text": "water", "kind": "word", "tags": ["flap-t", "en-US"], "minSegments": 2 },
+  { "text": "better", "kind": "word", "tags": ["flap-t", "en-US"], "minSegments": 2 },
+  { "text": "city", "kind": "word", "tags": ["flap-t", "en-US"], "minSegments": 2 },
+  {
+    "text": "little",
+    "kind": "word",
+    "tags": ["flap-t", "syllabic-l"],
+    "minSegments": 2
+  },
+  { "text": "rural", "kind": "word", "tags": ["r-colored"], "minSegments": 2 },
+  {
+    "text": "squirrel",
+    "kind": "word",
+    "tags": ["cluster", "r-colored"],
+    "minSegments": 2
+  },
+  {
+    "text": "architecture",
+    "kind": "word",
+    "tags": ["cluster", "stress"],
+    "minSegments": 4
+  },
+  {
+    "text": "entrepreneur",
+    "kind": "word",
+    "tags": ["loanword", "stress"],
+    "minSegments": 3
+  },
+  { "text": "vegetable", "kind": "word", "tags": ["reduction"], "minSegments": 3 },
+  { "text": "Wednesday", "kind": "word", "tags": ["silent-letter"], "minSegments": 2 },
+  {
+    "text": "clothes",
+    "kind": "word",
+    "tags": ["cluster", "voiced-th"],
+    "minSegments": 1
+  },
+  { "text": "months", "kind": "word", "tags": ["cluster", "th"], "minSegments": 1 },
+  { "text": "asked", "kind": "word", "tags": ["past-ed", "cluster"], "minSegments": 1 },
+  { "text": "worked", "kind": "word", "tags": ["past-ed"], "minSegments": 1 },
+  { "text": "wanted", "kind": "word", "tags": ["past-ed"], "minSegments": 2 },
+  {
+    "text": "development",
+    "kind": "word",
+    "tags": ["stress", "schwa"],
+    "minSegments": 4
+  },
+  {
+    "text": "pronunciation",
+    "kind": "word",
+    "tags": ["stress", "vowel"],
+    "minSegments": 5
+  },
+  { "text": "language", "kind": "word", "tags": ["ng", "affricate"], "minSegments": 2 },
+  { "text": "focus", "kind": "word", "tags": ["stress"], "minSegments": 2 },
+  {
+    "text": "available",
+    "kind": "word",
+    "tags": ["stress", "reduction"],
+    "minSegments": 4
+  },
+  {
+    "text": "particularly",
+    "kind": "word",
+    "tags": ["stress", "reduction"],
+    "minSegments": 5
+  },
+  {
+    "text": "Can you help me?",
+    "kind": "phrase",
+    "tags": ["question", "reduction"],
+    "minSegments": 2
+  },
+  {
+    "text": "How are you doing?",
+    "kind": "phrase",
+    "tags": ["question", "linking"],
+    "minSegments": 3
+  },
+  {
+    "text": "Nice to meet you.",
+    "kind": "phrase",
+    "tags": ["greeting", "linking"],
+    "minSegments": 3
+  },
+  {
+    "text": "What time is it?",
+    "kind": "phrase",
+    "tags": ["question", "linking"],
+    "minSegments": 3
+  },
+  {
+    "text": "Could you say that again?",
+    "kind": "phrase",
+    "tags": ["polite", "reduction"],
+    "minSegments": 3
+  },
+  {
+    "text": "I don't understand.",
+    "kind": "phrase",
+    "tags": ["negative", "stress"],
+    "minSegments": 3
+  },
+  {
+    "text": "Where is the bathroom?",
+    "kind": "phrase",
+    "tags": ["travel", "question"],
+    "minSegments": 3
+  },
+  {
+    "text": "I'd like a cup of coffee.",
+    "kind": "phrase",
+    "tags": ["contraction", "reduction"],
+    "minSegments": 4
+  },
+  {
+    "text": "Do you have any questions?",
+    "kind": "phrase",
+    "tags": ["question", "reduction"],
+    "minSegments": 4
+  },
+  {
+    "text": "Let me think about it.",
+    "kind": "phrase",
+    "tags": ["linking", "flap-t"],
+    "minSegments": 4
+  },
+  {
+    "text": "I'll call you tomorrow.",
+    "kind": "phrase",
+    "tags": ["contraction", "stress"],
+    "minSegments": 3
+  },
+  {
+    "text": "It was nice talking to you.",
+    "kind": "phrase",
+    "tags": ["linking", "reduction"],
+    "minSegments": 4
+  },
+  {
+    "text": "Could I get the check, please?",
+    "kind": "phrase",
+    "tags": ["restaurant", "polite"],
+    "minSegments": 4
+  },
+  {
+    "text": "I'm looking for the train station.",
+    "kind": "phrase",
+    "tags": ["travel", "contraction"],
+    "minSegments": 5
+  },
+  {
+    "text": "The weather is beautiful today.",
+    "kind": "phrase",
+    "tags": ["th", "stress"],
+    "minSegments": 5
+  },
+  {
+    "text": "She sells seashells.",
+    "kind": "phrase",
+    "tags": ["sibilant", "minimal-contrast"],
+    "minSegments": 3
+  },
+  {
+    "text": "Three free throws.",
+    "kind": "phrase",
+    "tags": ["th", "cluster"],
+    "minSegments": 3
+  },
+  {
+    "text": "I really appreciate it.",
+    "kind": "phrase",
+    "tags": ["stress", "linking"],
+    "minSegments": 4
+  },
+  {
+    "text": "Would you mind speaking slowly?",
+    "kind": "phrase",
+    "tags": ["polite", "reduction"],
+    "minSegments": 4
+  },
+  {
+    "text": "My flight leaves at eight.",
+    "kind": "phrase",
+    "tags": ["travel", "linking"],
+    "minSegments": 4
+  },
+  {
+    "text": "This is exactly what I needed.",
+    "kind": "phrase",
+    "tags": ["cluster", "stress"],
+    "minSegments": 5
+  },
+  {
+    "text": "There are thirty-three people.",
+    "kind": "phrase",
+    "tags": ["th", "numbers"],
+    "minSegments": 4
+  },
+  {
+    "text": "Please leave it on the table.",
+    "kind": "phrase",
+    "tags": ["linking", "flap-t"],
+    "minSegments": 5
+  },
+  {
+    "text": "I have been working all day.",
+    "kind": "phrase",
+    "tags": ["aspect", "linking"],
+    "minSegments": 5
+  },
+  {
+    "text": "We should have left earlier.",
+    "kind": "phrase",
+    "tags": ["reduction", "stress"],
+    "minSegments": 5
+  },
+  {
+    "text": "Is this seat available?",
+    "kind": "phrase",
+    "tags": ["question", "stress"],
+    "minSegments": 4
+  },
+  {
+    "text": "Turn right at the next light.",
+    "kind": "phrase",
+    "tags": ["directions", "r-colored"],
+    "minSegments": 5
+  },
+  {
+    "text": "The meeting starts at nine.",
+    "kind": "phrase",
+    "tags": ["work", "linking"],
+    "minSegments": 5
+  },
+  {
+    "text": "Thanks for your patience.",
+    "kind": "phrase",
+    "tags": ["th", "polite"],
+    "minSegments": 4
+  },
+  {
+    "text": "See you later!",
+    "kind": "phrase",
+    "tags": ["farewell", "linking"],
+    "minSegments": 3
+  }
+]

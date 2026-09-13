@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "history": [
+    {
+      "id": "hello",
+      "text": "hello",
+      "locale": "en-US",
+      "accessedAt": "2026-07-01T10:00:00.000Z"
+    }
+  ]
+}

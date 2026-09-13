@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+storage/
+package-lock.json
+*.md
+ios/App/App/Assets.xcassets/
+ios/App/App/capacitor.config.json
+ios/App/App/public/
+android/

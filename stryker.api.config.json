@@ -1,0 +1,33 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "testRunner": "command",
+  "commandRunner": {
+    "command": "npm run test --workspace @smarttalky/api -- src/features/text-to-speech/domain/audio-identity.test.ts src/observability/provider-generation-budget.test.ts src/http/middleware/cors.test.ts src/http/middleware/rate-limit.test.ts src/http/middleware/error-handler.test.ts src/app.test.ts"
+  },
+  "mutate": [
+    "apps/api/src/features/text-to-speech/domain/audio-identity.ts",
+    "apps/api/src/observability/provider-generation-budget.ts",
+    "apps/api/src/http/middleware/cors.ts",
+    "apps/api/src/http/middleware/rate-limit.ts",
+    "apps/api/src/http/middleware/error-handler.ts"
+  ],
+  "reporters": ["clear-text", "json"],
+  "jsonReporter": {
+    "fileName": "docs/evidence/mutation/api-baseline.json"
+  },
+  "thresholds": {
+    "high": 97,
+    "low": 97,
+    "break": 97
+  },
+  "concurrency": 4,
+  "timeoutMS": 10000,
+  "tempDirName": ".stryker-tmp",
+  "ignorePatterns": [
+    "android",
+    "ios",
+    "apps/web",
+    "storage",
+    "apps/web/public/documentacion"
+  ]
+}

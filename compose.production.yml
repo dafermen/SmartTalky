@@ -1,0 +1,75 @@
+name: smarttalky-production
+
+services:
+  api:
+    image: smarttalky/api:${SMARTTALKY_IMAGE_TAG:-local}
+    build:
+      context: .
+      target: api
+    env_file:
+      - path: ${SMARTTALKY_ENV_FILE:-.env.production}
+        required: true
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3000
+      LOG_LEVEL: info
+      CORS_ALLOWED_ORIGINS: https://smarttalky.innovalogic.tech
+      TRUST_PROXY_HOPS: 2
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    volumes:
+      - ./storage/audio-cache:/app/storage/audio-cache
+      - ./storage/educational-cache:/app/storage/educational-cache
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3000/api/v1/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - internal
+
+  web:
+    image: smarttalky/web:${SMARTTALKY_IMAGE_TAG:-local}
+    build:
+      context: .
+      target: web
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx:size=16m,mode=0755
+      - /tmp:size=16m,mode=1777
+    ports:
+      - '127.0.0.1:${SMARTTALKY_WEB_PORT:-5182}:8080'
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '--spider', 'http://127.0.0.1:8080/']
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
