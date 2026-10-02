@@ -192,3 +192,7 @@ simultáneas.
 Consulte [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), la
 [licencia MIT](LICENSE) y el inventario reproducible
 [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
+
+## DOC-STD-20261002 — Navegación documental
+
+Consultar el [mapa documental](docs/00-indice.md) para encontrar fuentes oficiales, rutas de lectura y reglas de mantenimiento del proyecto.

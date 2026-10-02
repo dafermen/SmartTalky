@@ -597,3 +597,7 @@ Para continuar, usar `CURRENT_STATUS.md` como fotografía vigente. La siguiente 
   cinco avisos moderados dev-only y la 1 espera aceptación visual. Estado 11/13;
   producción continúa bloqueada y el staging usa proveedor falso con caché.
 - `ST-633` quedó `COMPLETADA`; no existe una tarea `EN_PROGRESO`.
+
+## DOC-STD-20261002
+
+Se actualizaron navegación y fuentes documentales; este cambio no acepta tareas del producto ni puertas de lanzamiento.

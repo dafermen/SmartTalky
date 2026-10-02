@@ -204,3 +204,7 @@ Toda nueva sesión debe:
 5. comprobar `git status --short` y conservar todos los cambios existentes;
 6. elegir como máximo una tarea `EN_PROGRESO`;
 7. actualizar este archivo y `docs/CONTINUATION.md` antes de terminar.
+
+## DOC-STD-20261002 — Organización documental
+
+El [mapa documental](docs/00-indice.md) identifica fuentes canónicas y reglas de mantenimiento. Se conservan los hitos de implementación y la aceptación pendiente. Esta entrega documental registra validación y publicación por separado.
