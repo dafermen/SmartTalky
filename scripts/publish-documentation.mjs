@@ -5,6 +5,7 @@ const root = resolve(import.meta.dirname, '..')
 const publicRoot = resolve(root, 'apps', 'web', 'public', 'documentacion')
 const rootDocuments = [
   'README.md',
+  'CURRENT_STATUS.md',
   'CONTRIBUTING.md',
   'SECURITY.md',
   'CHANGELOG.md',

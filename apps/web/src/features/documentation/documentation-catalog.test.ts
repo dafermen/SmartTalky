@@ -33,6 +33,12 @@ describe('catálogo público de documentación', () => {
     ).toBe('licencias-terceros')
   })
 
+  it('abre el estado canónico desde el mapa dentro del lector', () => {
+    expect(
+      resolveDocumentationEntry('../CURRENT_STATUS.md', 'docs/00-indice.md')?.id,
+    ).toBe('estado-actual')
+  })
+
   it('no intercepta enlaces externos ni anclas', () => {
     expect(resolveDocumentationEntry('https://github.com/', 'README.md')).toBeUndefined()
     expect(resolveDocumentationEntry('#inicio', 'README.md')).toBeUndefined()

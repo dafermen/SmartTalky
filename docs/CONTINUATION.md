@@ -601,3 +601,11 @@ Para continuar, usar `CURRENT_STATUS.md` como fotografía vigente. La siguiente 
 ## DOC-STD-20261002
 
 Se actualizaron navegación y fuentes documentales; este cambio no acepta tareas del producto ni puertas de lanzamiento.
+
+## Inicio de ST-634 — 2026-10-03
+
+Se retoma la estandarización solicitada por el propietario. ST-634 es la única tarea EN_PROGRESO: completar la publicación y navegación del estado canónico. Validación pendiente; staging continúa en c01cdc1, restringido y sin proveedor pago. No se alteran las decisiones pendientes de producción.
+
+## Cierre local de ST-634 — 2026-10-03
+
+La ruta canónica se publica y resuelve dentro del lector. release:check PASS: 273 pruebas runtime, 8 E2E, build, bundle seguro, carga, 42 documentos, 738 licencias y demo simulada. Dos esperas de navegación fallaron por tiempo en la primera ejecución; sus 7 pruebas focalizadas y la suite completa con VITEST_MAX_WORKERS=1 pasaron sin relajar tiempos. ST-634 está COMPLETADA y no hay tarea EN_PROGRESO. GitHub y staging pendientes de verificar; siguiente paso: esperar CI y entregar web documental con respaldo, conservando API, proveedor simulado, restricciones y matriz 11/13.

@@ -198,6 +198,8 @@ Estados permitidos: `PENDIENTE`, `EN_PROGRESO`, `BLOQUEADA`, `EN_REVISION`, `COM
 | ST-632 | Hacer reproducible CI desde un checkout limpio — construye los paquetes internos requeridos antes del typecheck y mutation testing para evitar depender de artefactos locales ignorados. | `COMPLETADA` | alta / ST-631 | Completada 2026-09-13: réplica local sin artefactos y CI remoto 34780746302 verdes en Node 22/24, Docker y mutation testing; dependencias internas construidas primero y timeout de mutaciones ajustado a su duración real, sin OpenAI. | scripts raíz/CI/documentación |
 | ST-633 | Preparar staging HTTPS restringido — permite reunir evidencia E2E, seguridad, recursos y rollback sin abrir producción ni usar proveedores pagos automáticamente. | `COMPLETADA` | alta / ST-632 | Completada 2026-09-13: commit c01cdc1 con CI verde, certificado/renovación, restricción por IP, 10 E2E, caché real con fake, 5.000 solicitudes, recursos, aislamiento, smoke y rollback verificados. La matriz avanzó a 11/13; producción sigue bloqueada por aceptación y riesgo dev. | reglas/docs/servidor/pruebas/evidencia |
 
+| ST-634 | Completar las rutas del mapa documental — publica el estado canónico dentro del lector. | `COMPLETADA` | media / ST-633 | Completada 2026-10-03: ruta relativa verificada; release:check PASS (273 runtime, 8 E2E), publicación de 41 fuentes y continuidad. Entrega remota se registra por separado. | catálogo web/publicador/docs/pruebas |
+
 ## Fase 7 — Capacitor e iOS
 
 | ID | Título, descripción y justificación | Estado | Prioridad / dependencias | Aceptación / pruebas | Archivos previstos |

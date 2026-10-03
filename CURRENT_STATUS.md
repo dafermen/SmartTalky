@@ -1,14 +1,30 @@
 # Estado actual de SmartTalky
 
-> Última actualización: 2026-09-13. Este archivo es la fotografía breve para
+> Última actualización: 2026-10-03. Este archivo es la fotografía breve para
 > reanudar el proyecto. El tablero detallado permanece en `docs/TASKS.md` y el
 > historial de sesiones en `docs/CONTINUATION.md`.
+
+## Candidata documental validada — 2026-10-03
+
+`ST-634` está `COMPLETADA`: el publicador incluye `CURRENT_STATUS.md` y el
+catálogo lo abre en `/docs/estado-actual`; una prueba verifica el enlace desde
+el mapa. `release:check` PASS con 273 pruebas runtime (46 shared, 85 web,
+142 API), 8 E2E, build, bundle, carga, documentación, licencias y demo simulada.
+La primera ejecución local agotó la espera de dos pruebas de navegación;
+ambas pasaron aisladas y la suite completa pasó con `VITEST_MAX_WORKERS=1`,
+sin cambiar sus tiempos ni omitir controles.
+
+GitHub y la entrega al staging se verifican después de publicar esta candidata.
+El runtime del staging sigue en `c01cdc1`. Próximo paso documental: esperar CI
+y actualizar solo la web documental del staging restringido con respaldo.
+La matriz 11/13 y el proveedor simulado permanecen vigentes; esta revisión no
+acepta producción pública ni las decisiones funcionales pendientes.
 
 ## Punto actual
 
 SmartTalky está en una **puerta de decisiones previa a producción pública**. El
-MVP web `0.1.0-rc.1` y Android están implementados. GitHub contiene `c01cdc1` y
-el staging HTTPS restringido ejecuta ese commit sin OpenAI; producción pública
+MVP web `0.1.0-rc.1` y Android están implementados. La documentación fuente avanzó en GitHub mediante `d8cceab`;
+el staging HTTPS restringido sigue ejecutando `c01cdc1` sin OpenAI; producción pública
 permanece bloqueada.
 
 - Fases 0–5: completas.
@@ -146,7 +162,7 @@ consulta nueva sí puede hacerlo cuando la clave está configurada.
 ## GitHub e infraestructura autorizada
 
 - Remoto: `https://github.com/dafermen/SmartTalky.git`; `origin/main` contiene
-  `c01cdc1`, con CI remoto verde.
+  la estandarización documental `d8cceab`; el runtime del staging sigue en `c01cdc1`.
 - Servidor: Ubuntu 24.04, Docker 29.8, Compose 5.5, Nginx 1.24 y Certbot 2.9.
 - DNS: `smarttalky.innovalogic.tech` resuelve al servidor autorizado.
 - 5180/5181 están ocupados por otro producto; SmartTalky reserva 5182 solo en

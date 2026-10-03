@@ -28,6 +28,14 @@ export const documentationCatalog: DocumentationEntry[] = [
     keywords: ['inicio', 'resumen', 'mvp'],
   },
   {
+    id: 'estado-actual',
+    title: 'Estado actual',
+    summary: 'Validación, entregas, límites y siguiente paso del proyecto.',
+    category: 'inicio',
+    sourcePath: 'CURRENT_STATUS.md',
+    keywords: ['estado', 'continuidad', 'validacion', 'despliegue'],
+  },
+  {
     id: 'indice',
     title: 'Índice general',
     summary: 'Mapa de toda la documentación técnica y de producto.',

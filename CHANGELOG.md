@@ -6,6 +6,8 @@ Todos los cambios relevantes se documentarán aquí siguiendo una estructura ins
 
 ### Corregido
 
+- El mapa documental abre el estado canónico dentro del lector; el publicador incluye su fuente Markdown.
+
 - CI construye los paquetes internos antes del typecheck y mutation testing,
   por lo que una instalación limpia ya no depende de artefactos `dist/`
   locales; el trabajo de mutaciones dispone de un límite acorde a su duración.
