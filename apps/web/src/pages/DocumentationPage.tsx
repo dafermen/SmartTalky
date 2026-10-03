@@ -18,10 +18,15 @@ import {
   createHeadingId,
   documentationCategoryLabels,
   extractTableOfContents,
-  findDocumentation,
   getNodeText,
   type TableOfContentsEntry,
 } from '../features/documentation/documentation-navigation'
+
+import {
+  CopyableCode,
+  ExpandableImage,
+} from '../features/documentation/DocumentationReadingTools'
+import { useDocumentationSearch } from '../features/documentation/use-documentation-search'
 
 function getDocumentationAssetPath(
   source: string | undefined,
@@ -79,7 +84,7 @@ function DocumentCard({ entry }: { entry: DocumentationEntry }) {
 
 function DocumentationIndex({ query }: { query: string }) {
   const { t } = useTranslation()
-  const matches = useMemo(() => findDocumentation(query), [query])
+  const matches = useDocumentationSearch(query)
 
   return (
     <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
@@ -100,6 +105,38 @@ function DocumentationIndex({ query }: { query: string }) {
         </p>
       </header>
 
+      {!query.trim() ? (
+        <nav aria-label="Recorridos de lectura" className="grid gap-4 sm:grid-cols-3">
+          {[
+            {
+              id: 'readme',
+              title: 'Conocer el proyecto',
+              description: 'Qué resuelve y qué puedes probar.',
+            },
+            {
+              id: 'demo',
+              title: 'Aprender a usarlo',
+              description: 'Primeros pasos y recorridos de la aplicación.',
+            },
+            {
+              id: 'desarrollo-estandar',
+              title: 'Explorar el desarrollo',
+              description: 'Instalación, arquitectura y pruebas.',
+            },
+          ].map((route) => (
+            <Link
+              key={route.id}
+              to={`/docs/${route.id}`}
+              className="rounded-card border border-border bg-surface-raised p-5 hover:border-brand-primary"
+            >
+              <strong className="block text-brand-primary">{route.title}</strong>
+              <span className="mt-2 block text-sm text-ink-muted">
+                {route.description}
+              </span>
+            </Link>
+          ))}
+        </nav>
+      ) : null}
       <p className="m-0 text-sm font-bold text-ink-muted" role="status">
         {t('documentation.resultCount', { count: matches.length })}
       </p>
@@ -243,10 +280,34 @@ function DocumentReader({ entry }: { entry: DocumentationEntry }) {
     return () => controller.abort()
   }, [entry])
 
+  useEffect(() => {
+    if (status !== 'ready') return
+    const frame = requestAnimationFrame(() => {
+      if (window.location.hash) {
+        try {
+          document
+            .getElementById(decodeURIComponent(window.location.hash.slice(1)))
+            ?.scrollIntoView()
+        } catch {
+          /* Fragmento inválido: conservar lectura. */
+        }
+      } else if (typeof window.scrollTo === 'function') {
+        document
+          .querySelector<HTMLElement>('#documentation-content article h1')
+          ?.focus({ preventScroll: true })
+        window.scrollTo({ top: 0, behavior: 'instant' })
+      }
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [status])
+
   const tableOfContents = useMemo(() => extractTableOfContents(content), [content])
   const components: Components = {
     h1: ({ children }) => (
-      <h1 className="mb-6 mt-0 text-3xl font-black tracking-tight sm:text-4xl">
+      <h1
+        tabIndex={-1}
+        className="mb-6 mt-0 text-3xl font-black tracking-tight sm:text-4xl"
+      >
         {children}
       </h1>
     ),
@@ -289,11 +350,7 @@ function DocumentReader({ entry }: { entry: DocumentationEntry }) {
         {children}
       </blockquote>
     ),
-    pre: ({ children }) => (
-      <pre className="my-5 overflow-x-auto rounded-card bg-[#172033] p-5 text-sm leading-6 text-white">
-        {children}
-      </pre>
-    ),
+    pre: ({ children }) => <CopyableCode>{children}</CopyableCode>,
     code: ({ children, className }) => (
       <code
         className={
@@ -304,11 +361,9 @@ function DocumentReader({ entry }: { entry: DocumentationEntry }) {
       </code>
     ),
     img: ({ alt, src }) => (
-      <img
-        className="my-6 h-auto max-w-full rounded-card border border-border shadow-card"
+      <ExpandableImage
         src={getDocumentationAssetPath(src, entry.sourcePath)}
         alt={alt ?? ''}
-        loading="lazy"
       />
     ),
     table: ({ children }) => (
@@ -332,7 +387,7 @@ function DocumentReader({ entry }: { entry: DocumentationEntry }) {
         return (
           <Link
             className="font-bold text-brand-primary underline decoration-2 underline-offset-2"
-            to={`/docs/${internalEntry.id}`}
+            to={`/docs/${internalEntry.id}${href?.includes('#') ? '#' + href.split('#').slice(1).join('#') : ''}`}
           >
             {children}
           </Link>
@@ -413,7 +468,7 @@ function DocumentReader({ entry }: { entry: DocumentationEntry }) {
             </>
           ) : null}
         </Card>
-        <aside className="hidden rounded-card border border-border bg-surface-muted p-5 xl:sticky xl:top-40 xl:block xl:max-h-[calc(100vh-11rem)] xl:overflow-y-auto">
+        <aside className="hidden rounded-card border border-border bg-surface-muted p-5 xl:sticky xl:top-28 xl:block xl:max-h-[calc(100vh-8rem)] xl:overflow-y-auto">
           <p className="m-0 text-xs font-black uppercase tracking-wider text-brand-primary">
             {documentationCategoryLabels[entry.category]}
           </p>

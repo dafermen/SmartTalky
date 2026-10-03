@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readFile, readdir } from 'node:fs/promises'
+import { copyFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 
 const root = resolve(import.meta.dirname, '..')
@@ -62,6 +62,7 @@ const imageFiles = (await readdir(imageDirectory, { withFileTypes: true }))
   )
   .map((entry) => entry.name)
 
+const searchIndex = []
 for (const publication of publications) {
   const source = resolve(root, publication.source)
   const target = resolve(publicRoot, publication.target)
@@ -75,7 +76,10 @@ for (const publication of publications) {
 
   await mkdir(dirname(target), { recursive: true })
   await copyFile(source, target)
+  searchIndex.push({ sourcePath: publication.source, content })
 }
+
+await writeFile(resolve(publicRoot, 'search-index.json'), JSON.stringify(searchIndex))
 
 for (const imageFile of imageFiles) {
   const source = resolve(imageDirectory, imageFile)

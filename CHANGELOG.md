@@ -14,6 +14,8 @@ Todos los cambios relevantes se documentarán aquí siguiendo una estructura ins
 
 ### Añadido
 
+- Familia visual InnovaLogic para el lector documental, cabecera compacta, categorías plegables, búsqueda por contenido, recorridos de lectura, copia de código y ampliación accesible de imágenes. Se conservan las anclas al navegar entre documentos.
+
 - Staging HTTPS restringido con certificado renovable, pruebas externas,
   medición de 5.000 solicitudes, ensayo de rollback y caché real con proveedor
   falso explícito para validar sin OpenAI.

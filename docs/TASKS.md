@@ -200,6 +200,8 @@ Estados permitidos: `PENDIENTE`, `EN_PROGRESO`, `BLOQUEADA`, `EN_REVISION`, `COM
 
 | ST-634 | Completar las rutas del mapa documental — publica el estado canónico dentro del lector. | `COMPLETADA` | media / ST-633 | Completada 2026-10-03: ruta relativa verificada; release:check PASS (273 runtime, 8 E2E), publicación de 41 fuentes y continuidad. Entrega remota se registra por separado. | catálogo web/publicador/docs/pruebas |
 
+| ST-635 | Estandarizar navegación y lectura con identidad InnovaLogic. | `COMPLETADA` | media / ST-634 | Verificar búsqueda, lectura, accesibilidad, móvil y regresión; conservar rutas y controles. | lector documental, tema, pruebas |
+
 ## Fase 7 — Capacitor e iOS
 
 | ID | Título, descripción y justificación | Estado | Prioridad / dependencias | Aceptación / pruebas | Archivos previstos |
