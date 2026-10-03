@@ -609,3 +609,7 @@ Se retoma la estandarización solicitada por el propietario. ST-634 es la única
 ## Cierre local de ST-634 — 2026-10-03
 
 La ruta canónica se publica y resuelve dentro del lector. release:check PASS: 273 pruebas runtime, 8 E2E, build, bundle seguro, carga, 42 documentos, 738 licencias y demo simulada. Dos esperas de navegación fallaron por tiempo en la primera ejecución; sus 7 pruebas focalizadas y la suite completa con VITEST_MAX_WORKERS=1 pasaron sin relajar tiempos. ST-634 está COMPLETADA y no hay tarea EN_PROGRESO. GitHub y staging pendientes de verificar; siguiente paso: esperar CI y entregar web documental con respaldo, conservando API, proveedor simulado, restricciones y matriz 11/13.
+
+## Entrega documental al staging — 2026-10-03
+
+CI 37103080908 aprobó Node 22/24, Docker y mutaciones para e95ec80439d1. Se publicó únicamente la web en una imagen derivada del runtime existente, conservando sus recursos anteriores para clientes abiertos. API, configuración privada y restricción Nginx permanecieron idénticas; salud y contenedores correctos. Chrome verificó el mapa y estado canónico por HTTPS a 1440 y 390 píxeles, sin errores ni overflow; otro origen recibió 403. Copia de recuperación: /var/backups/documentation-standardization-20261003/smarttalky. La configuración complementaria compose.documentation.yml fija la imagen documental; el procedimiento operativo está en DEPLOYMENT.md. Este registro posterior se publica en GitHub por separado del artefacto web e95ec80439d1. No hay tarea EN_PROGRESO; producción continúa en 11/13 y bloqueada.

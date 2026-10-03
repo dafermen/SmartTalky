@@ -126,3 +126,25 @@ No se publica almacenamiento local, `.env`, claves, audio cacheado, datos de
 usuarios ni credenciales de firma. Consulte
 [Checklist de release](18-checklist-release.md) y
 [Capacitor](11-capacitor-ios-android.md).
+
+## Entrega documental del staging — 2026-10-03
+
+- Artefacto web: `smarttalky/web:docs-e95ec80439d1`, código documental `e95ec80439d19c3e73afb5fe38864e21e765ae68`.
+- API preservada en `smarttalky/api:c01cdc1`, mismo contenedor; sin migraciones ni cambios de proveedor.
+- Respaldo: `/var/backups/documentation-standardization-20261003/smarttalky`.
+- Fuentes empaquetadas y nota operativa: `/opt/smarttalky/documentation-releases/e95ec80439d1/DELIVERY.md`.
+- Configuración complementaria: `/opt/smarttalky/compose.documentation.yml`, solo fija la imagen web; no reemplaza secretos ni el archivo Compose base.
+
+Desde `/opt/smarttalky`, conservar la entrega documental con:
+
+```bash
+docker compose -f compose.production.yml -f compose.documentation.yml up -d --no-deps --no-build --wait web
+```
+
+Para recuperar la web previa:
+
+```bash
+docker compose -f compose.production.yml -f /var/backups/documentation-standardization-20261003/smarttalky/rollback.yml up -d --no-deps --no-build --wait web
+```
+
+La recuperación repone la imagen anterior; después debe reconciliarse explícitamente `compose.documentation.yml` antes de una siguiente entrega. Una futura publicación completa debe revisar esa configuración complementaria para no conservar accidentalmente la imagen documental antigua. Las restricciones de staging y las 13 puertas de producción siguen vigentes. Esta nota posterior describe la entrega; el portal conserva la fotografía empaquetada en e95ec80439d1.
