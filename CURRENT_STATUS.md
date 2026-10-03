@@ -4,6 +4,10 @@
 > reanudar el proyecto. El tablero detallado permanece en `docs/TASKS.md` y el
 > historial de sesiones en `docs/CONTINUATION.md`.
 
+## Navegación documental v1 validada localmente — 2026-10-03
+
+ST-635 COMPLETADA: identidad InnovaLogic configurable, cabecera compacta, categorías plegables, búsqueda por contenido, recorridos, copia de código, ampliación de imágenes y fragmentos conservados. release:check final PASS con VITEST_MAX_WORKERS=1, incluidas las nuevas pruebas de copia, búsqueda y Escape; 8 E2E PASS. La comprobación adicional de navegador pasó a 1440 y 390 píxeles. Esta revisión todavía no se ha publicado en GitHub ni desplegado; el staging anterior permanece disponible y conserva sus controles. No hay tarea EN_PROGRESO de este incremento.
+
 ## Candidata documental validada — 2026-10-03
 
 `ST-634` está `COMPLETADA`: el publicador incluye `CURRENT_STATUS.md` y el

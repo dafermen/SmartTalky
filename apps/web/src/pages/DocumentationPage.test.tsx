@@ -24,6 +24,17 @@ afterEach(() => {
 })
 
 describe('centro de documentación', () => {
+  it('cierra el menú con Escape y devuelve el foco al control', async () => {
+    const user = userEvent.setup()
+    renderDocumentation()
+    const button = screen.getByRole('button', { name: 'Abrir menú de documentación' })
+    await user.click(button)
+    expect(button).toHaveAttribute('aria-expanded', 'true')
+    await user.keyboard('{Escape}')
+    expect(button).toHaveAttribute('aria-expanded', 'false')
+    expect(button).toHaveFocus()
+  })
+
   it('filtra el catálogo con términos comprensibles', async () => {
     const user = userEvent.setup()
     renderDocumentation()

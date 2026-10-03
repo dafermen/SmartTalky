@@ -1,5 +1,6 @@
-import { type ReactNode, useEffect, useMemo, useState } from 'react'
+import { type ReactNode, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import './documentation-brand.css'
 import { Link } from 'react-router-dom'
 
 import {
@@ -7,10 +8,9 @@ import {
   documentationCategories,
   type DocumentationEntry,
 } from './documentation-catalog'
-import {
-  documentationCategoryLabels,
-  findDocumentation,
-} from './documentation-navigation'
+import { documentationCategoryLabels } from './documentation-navigation'
+
+import { useDocumentationSearch } from './use-documentation-search'
 
 type DocumentationTheme = 'light' | 'dark'
 
@@ -36,6 +36,7 @@ function useDocumentationTheme() {
 
   useEffect(() => {
     document.documentElement.dataset.documentationTheme = theme
+    document.documentElement.dataset.docsBrand = 'innovalogic'
     try {
       window.localStorage.setItem('smarttalky-documentation-theme', theme)
     } catch {
@@ -44,6 +45,7 @@ function useDocumentationTheme() {
 
     return () => {
       delete document.documentElement.dataset.documentationTheme
+      delete document.documentElement.dataset.docsBrand
     }
   }, [theme])
 
@@ -89,13 +91,18 @@ function DocumentationSidebar({
         </Link>
         <div className="grid gap-6">
           {documentationCategories.map((category) => (
-            <div key={category} aria-labelledby={`docs-nav-${idPrefix}-${category}`}>
-              <h2
+            <details
+              key={category}
+              open
+              className="docs-category"
+              aria-labelledby={`docs-nav-${idPrefix}-${category}`}
+            >
+              <summary
                 className="m-0 px-3 text-xs font-black uppercase tracking-wider text-ink-muted"
                 id={`docs-nav-${idPrefix}-${category}`}
               >
                 {documentationCategoryLabels[category]}
-              </h2>
+              </summary>
               <ul className="mb-0 mt-2 grid list-none gap-0.5 p-0">
                 {documentationCatalog
                   .filter((entry) => entry.category === category)
@@ -119,7 +126,7 @@ function DocumentationSidebar({
                     )
                   })}
               </ul>
-            </div>
+            </details>
           ))}
         </div>
       </nav>
@@ -140,17 +147,31 @@ export function DocumentationShell({
 }) {
   const { t } = useTranslation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const mobileMenuButton = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileMenuOpen(false)
+        mobileMenuButton.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', closeOnEscape)
+    return () => document.removeEventListener('keydown', closeOnEscape)
+  }, [mobileMenuOpen])
   const { theme, toggleTheme } = useDocumentationTheme()
-  const searchResults = useMemo(() => findDocumentation(query), [query])
+  const searchResults = useDocumentationSearch(query)
 
   return (
-    <div className="min-h-screen bg-surface text-ink">
-      <header className="sticky top-[5.75rem] z-30 border-b border-border bg-surface-raised/95 shadow-sm backdrop-blur-xl sm:top-16">
-        <div className="mx-auto grid w-full max-w-[90rem] gap-3 px-4 py-3 sm:px-6 lg:grid-cols-[auto_minmax(14rem,26rem)_auto] lg:items-center lg:px-8">
+    <div className="docs-brand min-h-screen bg-surface text-ink">
+      <header className="docs-header sticky top-0 z-30 border-b border-border bg-surface-raised/95 shadow-sm backdrop-blur-xl ">
+        <div className="docs-toolbar mx-auto grid w-full max-w-[90rem] gap-3 px-4 py-3 sm:px-6 lg:grid-cols-[auto_minmax(14rem,26rem)_auto] lg:items-center lg:px-8">
           <div className="flex min-w-0 items-center gap-2">
             <button
               className="inline-flex size-11 shrink-0 items-center justify-center rounded-control border border-border bg-surface-raised font-black text-ink lg:hidden"
               type="button"
+              ref={mobileMenuButton}
               aria-controls="documentation-mobile-navigation"
               aria-expanded={mobileMenuOpen}
               aria-label={
@@ -168,6 +189,13 @@ export function DocumentationShell({
             >
               SmartTalky <span className="text-brand-primary">Docs</span>
             </Link>
+            <a
+              href="/"
+              className="ml-auto rounded-control px-2 py-2 text-xs font-bold text-brand-primary lg:hidden"
+              aria-label="Volver a la aplicación"
+            >
+              ← App
+            </a>
             <nav
               className="ml-3 hidden items-center gap-1 xl:flex"
               aria-label={t('documentation.sectionLinksLabel')}
@@ -192,7 +220,7 @@ export function DocumentationShell({
               </Link>
               <Link
                 className="rounded-control px-3 py-2 text-sm font-bold text-ink-muted hover:bg-surface-muted hover:text-ink"
-                to="/docs/tareas"
+                to="/docs/estado-actual"
               >
                 Estado
               </Link>
@@ -271,12 +299,12 @@ export function DocumentationShell({
       ) : null}
 
       <div className="mx-auto grid w-full max-w-[90rem] items-start lg:grid-cols-[18rem_minmax(0,1fr)]">
-        <aside className="hidden border-r border-border px-5 py-8 lg:sticky lg:top-36 lg:block lg:max-h-[calc(100vh-9rem)] lg:overflow-y-auto">
+        <aside className="hidden border-r border-border px-5 py-8 lg:sticky lg:top-24 lg:block lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
           <DocumentationSidebar currentEntry={currentEntry} idPrefix="desktop" />
         </aside>
-        <div id="documentation-content" className="min-w-0">
+        <main id="documentation-content" tabIndex={-1} className="min-w-0">
           {children}
-        </div>
+        </main>
       </div>
     </div>
   )

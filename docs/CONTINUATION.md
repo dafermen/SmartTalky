@@ -6,7 +6,7 @@ Mantener una fotografía inequívoca del proyecto para futuras sesiones de Codex
 
 ## Estado operativo
 
-- **Última tarea completada:** `ST-633` — staging HTTPS restringido y evidencia operativa.
+- **Última tarea completada:** `ST-635` — navegación documental InnovaLogic validada localmente.
 - **Tarea actual:** ninguna `EN_PROGRESO`; quedan dos decisiones del propietario.
 - **Fase 2:** completada.
 - **Fase 3:** completada; diez de diez tareas verificadas.
@@ -21,7 +21,7 @@ Mantener una fotografía inequívoca del proyecto para futuras sesiones de Codex
 ## Cambios implementados
 
 - La navegación incorpora **Documentación** y conserva los tres destinos legibles en una fila móvil independiente.
-- `/docs` organiza 40 fuentes Markdown reales y cuatro capturas en seis categorías, permite buscar por título, resumen y palabras clave, y muestra cuántos documentos coinciden.
+- `/docs` organiza 41 fuentes Markdown reales y cuatro capturas en seis categorías, permite buscar por título, resumen, palabras clave y contenido de las fuentes públicas, y muestra cuántos documentos coinciden.
 - `/docs/:documentId` presenta Markdown con tabla de contenido, anterior/siguiente, tablas y enlaces internos; mantiene el código desplazable y no interpreta HTML incrustado.
 - `/documentacion` y sus identificadores anteriores redirigen a `/docs` para conservar compatibilidad.
 - `scripts/publish-documentation.mjs` publica una lista cerrada, excluye archivos operativos/secretos y bloquea patrones compatibles con claves.
@@ -613,3 +613,11 @@ La ruta canónica se publica y resuelve dentro del lector. release:check PASS: 2
 ## Entrega documental al staging — 2026-10-03
 
 CI 37103080908 aprobó Node 22/24, Docker y mutaciones para e95ec80439d1. Se publicó únicamente la web en una imagen derivada del runtime existente, conservando sus recursos anteriores para clientes abiertos. API, configuración privada y restricción Nginx permanecieron idénticas; salud y contenedores correctos. Chrome verificó el mapa y estado canónico por HTTPS a 1440 y 390 píxeles, sin errores ni overflow; otro origen recibió 403. Copia de recuperación: /var/backups/documentation-standardization-20261003/smarttalky. La configuración complementaria compose.documentation.yml fija la imagen documental; el procedimiento operativo está en DEPLOYMENT.md. Este registro posterior se publica en GitHub por separado del artefacto web e95ec80439d1. No hay tarea EN_PROGRESO; producción continúa en 11/13 y bloqueada.
+
+## Inicio de ST-635 — 2026-10-03
+
+El propietario autorizó estandarizar la navegación en todos los proyectos. Se comienza con el piloto SmartTalky y una base InnovaLogic azul/cian configurable. Se conservan permisos, producto y Markdown. Pruebas pendientes; ST-635 es la única tarea EN_PROGRESO.
+
+## Cierre local de ST-635 — 2026-10-03
+
+release:check final PASS, 8 E2E PASS y navegador adicional PASS en 1440/390. Incluye búsqueda dentro de fuentes ya públicas, código copiable, imágenes ampliables con Escape, anclas compartibles, menú plegable y tema configurable InnovaLogic. GitHub y staging de esta revisión pendientes. No hay tarea EN_PROGRESO de este incremento; la aceptación de producción pública continúa bajo sus controles anteriores. Próximo paso de entrega: revisión de diff, CI y actualización exclusiva de web con rollback, conservando API, configuración y acceso.

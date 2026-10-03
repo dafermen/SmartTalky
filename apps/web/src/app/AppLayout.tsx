@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { isDocumentationEnabled } from '../features/documentation/documentation-config'
@@ -6,6 +6,7 @@ import { isDocumentationEnabled } from '../features/documentation/documentation-
 /** Layout mobile-first con salto al contenido y navegación breve. */
 export function AppLayout() {
   const { t } = useTranslation()
+  const location = useLocation()
   const documentationEnabled = isDocumentationEnabled()
 
   const navClassName = ({ isActive }: { isActive: boolean }) =>
@@ -14,6 +15,20 @@ export function AppLayout() {
         ? 'bg-brand-soft text-brand-primary'
         : 'text-ink-muted hover:bg-surface-muted hover:text-ink'
     }`
+
+  if (
+    documentationEnabled &&
+    /^\/(?:docs|documentacion)(?:\/|$)/.test(location.pathname)
+  ) {
+    return (
+      <>
+        <a className="skip-link" href="#documentation-content">
+          {t('navigation.skipToContent')}
+        </a>
+        <Outlet />
+      </>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-surface text-ink">
